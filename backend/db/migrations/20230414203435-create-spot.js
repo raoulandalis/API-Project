@@ -15,7 +15,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       ownerId: {
-        type: Sequelize.STRING
+        type: Sequelize.INTEGER
       },
       address: {
         type: Sequelize.STRING
