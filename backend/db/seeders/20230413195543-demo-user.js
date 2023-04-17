@@ -1,5 +1,4 @@
 'use strict';
-const bcrypt = require("bcryptjs");
 
 let options = {};
 if (process.env.NODE_ENV === 'production') {
@@ -11,24 +10,24 @@ module.exports = {
     options.tableName = 'Users';
     return queryInterface.bulkInsert(options, [
       {
-        email: 'demo@user.io',
-        firstName: 'first',
-        lastName: 'last',
-        username: 'Demo-lition',
+        email: 'hotstuff22@user.io',
+        firstName: 'Pheonix',
+        lastName: 'Fireguy',
+        username: 'hothandzz',
         hashedPassword: bcrypt.hashSync('password')
       },
       {
-        email: 'user1@user.io',
-        firstName: 'first',
-        lastName: 'last',
-        username: 'FakeUser1',
+        email: 'lineupbrim@user.io',
+        firstName: 'Brimstone',
+        lastName: 'Eyepad',
+        username: 'brimmystimmy',
         hashedPassword: bcrypt.hashSync('password2')
       },
       {
-        email: 'user2@user.io',
-        firstName: 'first',
-        lastName: 'last',
-        username: 'FakeUser2',
+        email: 'cowerpower5@user.io',
+        firstName: 'Reyna',
+        lastName: 'Clutcherson',
+        username: 'UcantSeeMe',
         hashedPassword: bcrypt.hashSync('password3')
       }
     ], {});
@@ -38,7 +37,7 @@ module.exports = {
     options.tableName = 'Users';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      username: { [Op.in]: ['Demo-lition', 'FakeUser1', 'FakeUser2'] }
+      username: { [Op.in]: ['hothandzz', 'brimmystimmy', 'UcantSeeMe'] }
     }, {});
   }
 };
