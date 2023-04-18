@@ -61,6 +61,7 @@ router.get('/:spotId', async (req, res, next) => {
             },
             {
                 model: User,
+                as: 'Owner',
                 attributes: ['id', 'firstName', 'lastName']
             },
             {
@@ -69,18 +70,34 @@ router.get('/:spotId', async (req, res, next) => {
         ]
     })
 
-    const spot = spotId.toJSON()
-    let total = 0
+    if (!spotId) {
+        res.status(404)
+        return res.json({
+            message: "Spot couldn't be found"
+        })
+    }
 
-    // spot.Review.forEach(ele => {
-    //     total += ele.star
-    // })
+    const spotJSON = spotId.toJSON()
 
-    // const avg = total / spot.Review.length
+    const totalCount = await Review.count({ //numReviews
+        where: {
+            spotId: req.params.spotId
+        }
+    })
 
-    // spot.numReviews = total
+    const starCount = await Review.sum('stars', { //starSum
+        where: {
+            spotId: req.params.spotId
+        }
+    })
 
-    return res.json(spot)
+    spotJSON.numReviews = totalCount
+
+    spotJSON.avgStarRating = starCount / totalCount
+
+    delete spotJSON.Reviews
+
+    return res.json(spotJSON)
 })
 
 //GET ALL SPOTS
