@@ -9,10 +9,11 @@ const { Op } = require('sequelize');
 const { Spot, SpotImage, User, Booking, Review, ReviewImage, sequelize } = require('../../db/models');
 
 //GET ALL SPOTS OWNED BY CURRENT USER
+
 router.get('/current', requireAuth, async (req, res, next) => {
     const spots = await Spot.findAll({
         where: {
-            ownerId: req.user.id
+            ownerId: req.user.id // instance of current user logged in
         },
         include: [{
             model: SpotImage
@@ -48,6 +49,38 @@ router.get('/current', requireAuth, async (req, res, next) => {
     })
 
     return res.json ({Spots: spotsArr})
+})
+
+//GET DETAILS FOR A SPOT FROM AN ID
+router.get('/:spotId', async (req, res, next) => {
+    const spotId = await Spot.findByPk(req.params.spotId, {
+        include: [
+            {
+                model: SpotImage,
+                attributes: ['id', 'url', 'preview']
+            },
+            {
+                model: User,
+                attributes: ['id', 'firstName', 'lastName']
+            },
+            {
+                model: Review
+            }
+        ]
+    })
+
+    const spot = spotId.toJSON()
+    let total = 0
+
+    // spot.Review.forEach(ele => {
+    //     total += ele.star
+    // })
+
+    // const avg = total / spot.Review.length
+
+    // spot.numReviews = total
+
+    return res.json(spot)
 })
 
 //GET ALL SPOTS
