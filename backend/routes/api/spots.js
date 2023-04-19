@@ -21,7 +21,7 @@ router.get('/current', requireAuth, async (req, res, next) => {
         {
             model: Review
         }
-    ]
+        ]
     })
 
     const spotsArr = [];
@@ -48,7 +48,7 @@ router.get('/current', requireAuth, async (req, res, next) => {
         spotsArr.push(spotJSON)
     })
 
-    return res.json ({Spots: spotsArr})
+    return res.json({ Spots: spotsArr })
 })
 
 //GET DETAILS FOR A SPOT FROM AN ID
@@ -100,10 +100,247 @@ router.get('/:spotId', async (req, res, next) => {
     return res.json(spotJSON)
 })
 
+//CREATE A SPOT
+
+router.post('/', requireAuth, async (req, res, next) => {
+    const { address, city, state, country, lat, lng, name, description, price } = req.body
+
+    const error = {
+        message: "Bad Request",
+        errors: {}
+    }
+
+    if (!address) {
+        error.errors.address = "Street address is required"
+    }
+
+    if (!city) {
+        error.errors.city = "City is required"
+    }
+
+    if (!state) {
+        error.errors.state = "State is required"
+    }
+
+    if (!country) {
+        error.errors.country = "Country is required"
+    }
+
+    if (!lat) {
+        error.errors.lat = "Latitude is not valid"
+    }
+
+    if (!lng) {
+        error.errors.lng = "Longitude is not valid"
+    }
+
+    if (!name || name.length > 50) {
+        error.errors.name = "Name must be less than 50 characters"
+    }
+
+    if (!description) {
+        error.errors.description = "Description is required"
+    }
+
+    if (!price) {
+        error.errors.price = "Price per day is required"
+    }
+
+    if (Object.keys(error.errors).length) {
+        res.status(400)
+        return res.json({
+            message: error.message,
+            errors: error.errors
+        })
+    }
+
+    const newSpot = await Spot.create({
+        ownerId: req.user.id,
+        address,
+        city,
+        state,
+        country,
+        lat,
+        lng,
+        name,
+        description,
+        price
+    })
+
+    res.status(201)
+    return res.json(newSpot)
+})
+
+//ADD AN IMAGE TO A SPOT BASED ON THE SPOT ID
+
+router.post('/:spotId/images', requireAuth, async (req, res, next) => {
+    const { url, preview } = req.body
+
+    const user = req.user
+
+    const spotId = await Spot.findByPk(req.params.spotId)
+
+    if (!spotId || spotId.ownerId !== user.id) { // checks if the spotId instance ownderId matches with current user who's logged in
+        res.status(404)
+        return res.json({
+            message: "Spot couldn't be found"
+        })
+    }
+
+    const newImage = await SpotImage.create({
+        url,
+        preview
+    })
+
+    return res.json({
+        id: newImage.id,
+        url: newImage.url,
+        preview: newImage.preview
+    })
+})
+
+//EDIT A SPOT
+
+router.put('/:spotId', requireAuth, async (req, res, next) => {
+
+    const { address, city, state, country, lat, lng, name, description, price } = req.body
+
+    const user = req.user
+
+    const spotId = await Spot.findByPk(req.params.spotId)
+
+    const error = {
+        message: "Bad Request",
+        errors: {}
+    }
+
+    if (!spotId || spotId.ownerId !== user.id) {
+        res.status(404)
+        return res.json({
+            message: "Spot couldn't be found"
+        })
+    }
+
+    if (!address) {
+        error.errors.address = "Street address is required"
+    }
+
+    if (!city) {
+        error.errors.city = "City is required"
+    }
+
+    if (!state) {
+        error.errors.state = "State is required"
+    }
+
+    if (!country) {
+        error.errors.country = "Country is required"
+    }
+
+    if (!lat) {
+        error.errors.lat = "Latitude is not valid"
+    }
+
+    if (!lng) {
+        error.errors.lng = "Longitude is not valid"
+    }
+
+    if (!name || name.length > 50) {
+        error.errors.name = "Name must be less than 50 characters"
+    }
+
+    if (!description) {
+        error.errors.description = "Description is required"
+    }
+
+    if (!price) {
+        error.errors.price = "Price per day is required"
+    }
+
+    if (Object.keys(error.errors).length) {
+        res.status(400)
+        return res.json({
+            message: error.message,
+            errors: error.errors
+        })
+    }
+
+    await spotId.update({
+        address,
+        city,
+        state,
+        country,
+        lat,
+        lng,
+        name,
+        description
+    })
+
+    await spotId.save()
+
+    return res.json(spotId)
+
+})
+
+//DELETE A SPOT
+
+router.delete('/:spotId', requireAuth, async (req, res, next) => {
+
+    const user = req.user
+
+    const spotId = await Spot.findByPk(req.params.spotId)
+
+    if (!spotId || spotId.ownerId !== user.id) {
+        res.status(404)
+        res.json({
+            message: "Spot couldn't be found"
+        })
+    }
+
+    spotId.destroy()
+
+    return res.json({
+        message: "Successfully deleted"
+    })
+})
+
+//GET ALL REVIEWS BY SPOT ID
+
+router.get('/:spotId/reviews', async (req, res, next) => {
+
+    const spotId = await Spot.findByPk(req.params.spotId)
+
+    // SELECT * FROM Reviews WHERE spotId = :spotId
+    const spotReview = await Review.findAll({
+        where: {
+            spotId: req.params.spotId,
+        },
+        include: [
+            {
+                model: User,
+                attributes: ['id', 'firstName', 'lastName']
+            },
+            {
+                model: ReviewImage,
+                attributes: ['id', 'url']
+            }
+        ]
+    })
+
+    if (!spotId) {
+        res.status(404)
+        res.json({
+            message: "Spot couldn't be found"
+        })
+    }
+
+    return res.json({ Reviews: spotReview })
+})
+
 //GET ALL SPOTS
 
 router.get('/', async (req, res, next) => {
-    let {page, size, maxLat, minLat, minLng, maxLng, minPrice, maxPrice} = req.query
+    let { page, size, maxLat, minLat, minLng, maxLng, minPrice, maxPrice } = req.query
 
     page = parseInt(page)
     size = parseInt(size)
@@ -150,8 +387,8 @@ router.get('/', async (req, res, next) => {
         {
             model: Review
         }
-    ],
-    ...pagination
+        ],
+        ...pagination
     })
 
     const spotsArr = [];
@@ -178,7 +415,7 @@ router.get('/', async (req, res, next) => {
         spotsArr.push(spotJSON)
     })
 
-    return res.json ({Spots: spotsArr, page, size})
+    return res.json({ Spots: spotsArr, page, size })
 })
 
 
