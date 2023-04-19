@@ -337,6 +337,15 @@ router.get('/:spotId/reviews', async (req, res, next) => {
     return res.json({ Reviews: spotReview })
 })
 
+//CREATE A REVIEW FOR A SPOT BASED ON SPOT ID
+
+router.post('/:spotId/reviews', requireAuth, async (req, res, next) => {
+
+    const spotId = await Spot.findByPk(req.params.spotId)
+
+    return res.json(spotId)
+})
+
 //GET ALL SPOTS
 
 router.get('/', async (req, res, next) => {
