@@ -7,6 +7,7 @@ const { requireAuth } = require('../../utils/auth');
 const { Op } = require('sequelize');
 
 const { Spot, SpotImage, User, Booking, Review, ReviewImage, sequelize } = require('../../db/models');
+const { ResultWithContext } = require('express-validator/src/chain');
 
 //GET ALL SPOTS OWNED BY CURRENT USER
 
@@ -273,8 +274,19 @@ router.put('/:spotId', requireAuth, async (req, res, next) => {
         lat,
         lng,
         name,
-        description
+        description,
+        price
     })
+
+    // spotId.address = address
+    // spotId.city = city
+    // spotId.state = state
+    // spotId.country = country
+    // spotId.lat = lat
+    // spotId.lng = lng
+    // spotId.name = name
+    // spotId.description = description
+    // spotId.price = price
 
     await spotId.save()
 
@@ -335,6 +347,68 @@ router.get('/:spotId/reviews', async (req, res, next) => {
     }
 
     return res.json({ Reviews: spotReview })
+})
+
+//CREATE A REVIEW FOR A SPOT BASED ON SPOT ID
+
+router.post('/:spotId/reviews', requireAuth, async (req, res, next) => {
+
+    const {review, stars} = req.body
+    const user = req.user
+
+    const spotId = await Spot.findByPk(req.params.spotId)
+
+    const error = {
+        message: "Bad Request",
+        errors: {}
+    }
+
+    if (!review) {
+        error.errors = "Review text is required"
+    }
+
+    if(!stars) {
+        error.errors = "Stars must be an integer from 1 to 5"
+    }
+
+    if (Object.keys(error.errors).length) {
+        res.status(400)
+        return res.json({
+            message: error.message,
+            errors: error.errors
+        })
+    }
+
+    if (!spotId) {
+        res.status(404)
+        return res.json({
+            message: "Spot couldn't be found"
+        })
+    }
+
+    const existingReview = await Review.findOne({
+        where: {
+            userId: user.id, // current user logged in
+            spotId: req.params.spotId // spot from param
+        }
+    })
+
+    if (existingReview) {   //THESE TWO need to exist for this to be truthy
+        res.status(500)
+        return res.json({
+            message: "User already has a review for this spot"
+        })
+    }
+
+    const newReview = await Review.create({
+        userId: user.id,
+        spotId: spotId.id,
+        review: review,
+        stars: stars
+    })
+
+    res.status(201)
+    return res.json(newReview)
 })
 
 //GET ALL SPOTS

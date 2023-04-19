@@ -27,12 +27,10 @@ module.exports = {
         }
       },
       startDate: {
-        type: Sequelize.DATE,
-        allowNull: false
+        type: Sequelize.TEXT
       },
       endDate: {
-        type: Sequelize.DATE,
-        allowNull: false
+        type: Sequelize.TEXT
       },
       createdAt: {
         allowNull: false,
