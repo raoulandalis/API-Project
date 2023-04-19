@@ -7,6 +7,7 @@ const { requireAuth } = require('../../utils/auth');
 const { Op } = require('sequelize');
 
 const { Spot, SpotImage, User, Booking, Review, ReviewImage, sequelize } = require('../../db/models');
+const { ResultWithContext } = require('express-validator/src/chain');
 
 //GET ALL SPOTS OWNED BY CURRENT USER
 
@@ -387,11 +388,12 @@ router.post('/:spotId/reviews', requireAuth, async (req, res, next) => {
 
     const existingReview = await Review.findOne({
         where: {
-            userId: user.id // current user logged in
+            userId: user.id, // current user logged in
+            spotId: req.params.spotId // spot from param
         }
     })
 
-    if (existingReview) {
+    if (existingReview) {   //THESE TWO need to exist for this to be truthy
         res.status(500)
         return res.json({
             message: "User already has a review for this spot"
