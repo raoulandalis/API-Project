@@ -21,10 +21,10 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       startDate: {
-        type: Sequelize.DATE
+        type: Sequelize.TEXT
       },
       endDate: {
-        type: Sequelize.DATE
+        type: Sequelize.TEXT
       },
       createdAt: {
         allowNull: false,
