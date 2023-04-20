@@ -154,7 +154,13 @@ router.put('/:bookingId', requireAuth, async (req, res, next) => {
 router.delete('/:bookingId', requireAuth, async (req, res, next) => {
 
     const user = req.user
-    const bookingId = await Booking.findByPk(req.params.bookingId)
+    const bookingId = await Booking.findByPk(req.params.bookingId, {
+        include: {
+            model: Spot
+        }
+    })
+
+    console.log(bookingId.toJSON())
 
     if (!bookingId) {
         res.status(404)
@@ -170,6 +176,13 @@ router.delete('/:bookingId', requireAuth, async (req, res, next) => {
         })
     }
 
+    if (user.id === bookingId.Spot.ownerId) {
+        await bookingId.destroy()
+        return res.json({
+            message: "Successfully deleted"
+        })
+    }
+
     if (bookingId.userId !== user.id) {
         res.status(403)
         return res.json({
@@ -177,10 +190,17 @@ router.delete('/:bookingId', requireAuth, async (req, res, next) => {
         })
     }
 
+    // if (user.id === bookingId.Spot.ownerId) {
+    //     await bookingId.destroy()
+    //     return res.json({
+    //         message: "Successfully deleted"
+    //     })
+    // }
+
     await bookingId.destroy()
     return res.json({
-            message: "Successfully deleted"
-        })
+        message: "Successfully deleted"
+    })
 })
 
 
