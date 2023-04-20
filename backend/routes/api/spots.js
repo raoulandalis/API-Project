@@ -353,7 +353,7 @@ router.get('/:spotId/reviews', async (req, res, next) => {
 
 router.post('/:spotId/reviews', requireAuth, async (req, res, next) => {
 
-    const {review, stars} = req.body
+    const { review, stars } = req.body
     const user = req.user
 
     const spotId = await Spot.findByPk(req.params.spotId)
@@ -367,7 +367,7 @@ router.post('/:spotId/reviews', requireAuth, async (req, res, next) => {
         error.errors = "Review text is required"
     }
 
-    if(!stars) {
+    if (!stars) {
         error.errors = "Stars must be an integer from 1 to 5"
     }
 
@@ -432,7 +432,7 @@ router.get('/:spotId/bookings', requireAuth, async (req, res, next) => {
             },
             attributes: ['spotId', 'startDate', 'endDate']
         })
-        return res.json({Bookings: bookings})
+        return res.json({ Bookings: bookings })
     } else {
         const bookings = await Booking.findAll({
             where: {
@@ -443,7 +443,7 @@ router.get('/:spotId/bookings', requireAuth, async (req, res, next) => {
                 attributes: ['id', 'firstName', 'lastName']
             }]
         })
-        return res.json({Bookings: bookings})
+        return res.json({ Bookings: bookings })
     }
 
 })
@@ -451,7 +451,7 @@ router.get('/:spotId/bookings', requireAuth, async (req, res, next) => {
 //CREATE A BOOKING FROM A SPOT BASED ON THE SPOT ID
 
 router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
-    const {startDate, endDate} = req.body
+    const { startDate, endDate } = req.body
     const user = req.user
 
     const error = {
@@ -486,7 +486,7 @@ router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
         }
     })
 
-    const allBookingsArr =[]
+    const allBookingsArr = []
 
     allBookings.forEach(ele => {
         allBookingsArr.push(ele.toJSON())
@@ -501,17 +501,17 @@ router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
 
         if (startDateObj.getTime() === databaseStart.getTime() || endDateObj.getTime() === databaseEnd.getTime()) {
             error.errors.startDate = "Start date conflicts with an existing booking",
-            error.errors.endDate = "End date conflicts with an existing booking"
+                error.errors.endDate = "End date conflicts with an existing booking"
         }
 
         if (startDateObj.getTime() > databaseStart.getTime() && startDateObj.getTime() < databaseEnd.getTime() || endDateObj.getTime() > databaseStart.getTime() && endDateObj.getTime() < databaseEnd.getTime()) {
             error.errors.startDate = "Start date conflicts with an existing booking",
-            error.errors.endDate = "End date conflicts with an existing booking"
+                error.errors.endDate = "End date conflicts with an existing booking"
         }
 
         if (startDateObj.getTime() > databaseStart.getTime() && endDateObj.getTime() < databaseEnd.getTime()) {
             error.errors.startDate = "Start date conflicts with an existing booking",
-            error.errors.endDate = "End date conflicts with an existing booking"
+                error.errors.endDate = "End date conflicts with an existing booking"
         }
 
     })
@@ -540,14 +540,12 @@ router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
 router.get('/', async (req, res, next) => {
     let { page, size, maxLat, minLat, minLng, maxLng, minPrice, maxPrice } = req.query
 
-    page = parseInt(page)
-    size = parseInt(size)
+    page = parseInt(page)   // num
+    size = parseInt(size)   // num
 
-    if (!page) {
-        page = 1
-    }
+    console.log(page, size)
 
-    if (page <= 0) {
+    if (page < 1) {
         res.status(400)
         return res.json({
             message: "Bad Request",
@@ -557,11 +555,7 @@ router.get('/', async (req, res, next) => {
         })
     }
 
-    if (!size) {
-        size = 20
-    }
-
-    if (size <= 0) {
+    if (size < 1) {
         res.status(400)
         return res.json({
             message: "Bad Request",
@@ -571,6 +565,14 @@ router.get('/', async (req, res, next) => {
         })
     }
 
+    if (!page || page > 10) {
+        page = 1
+    }
+
+    if (!size || size > 20) {
+        size = 20
+    }
+
     let pagination = {}
 
     if (page >= 1 && size >= 1) {
@@ -578,8 +580,95 @@ router.get('/', async (req, res, next) => {
         pagination.offset = size * (page - 1);
     }
 
+    //Queries MAX/MIN LAT/LNG
+    const where = {}
+
+    if (maxLat !== undefined) {
+        if (Number(maxLat) % 1 === 0) {
+            res.status(400)
+            return res.json({
+                message: "Bad Request",
+                errors: "Maximum latitude is invalid"
+            })
+        } else {
+            where.lat = {
+                [Op.lte]: Number(maxLat)
+            }
+        }
+    }
+
+    if (minLat !== undefined) {
+        if (Number(minLat) % 1 === 0) {
+            res.status(400)
+            return res.json({
+                message: "Bad Request",
+                errors: "Minimum latitude is invalid"
+            })
+        } else {
+            where.lat = {
+                [Op.gte]: Number(minLat)
+            }
+        }
+    }
+
+    if (minLng !== undefined) {
+        if (Number(minLng) % 1 === 0) {
+            res.status(400)
+            return res.json({
+                message: "Bad Request",
+                errors: "Minimum latitude is invalid"
+            })
+        } else {
+            where.lng = {
+                [Op.gte]: Number(minLng)
+            }
+        }
+    }
+
+    if (maxLng !== undefined) {
+        if (Number(maxLng) % 1 === 0) {
+            res.status(400)
+            return res.json({
+                message: "Bad Request",
+                errors: "Minimum latitude is invalid"
+            })
+        } else {
+            where.lng = {
+                [Op.lte]: Number(maxLng)
+            }
+        }
+    }
+
+    if (minPrice !== undefined) {
+        if (Number(minPrice) < 0) {
+            return res.json({
+                message: "Bad Request",
+                errors: "Minimum price must be greater than or equal to 0"
+            })
+        } else {
+            where.price = {
+                [Op.gte]: Number(minPrice)
+            }
+        }
+    }
+
+    if (maxPrice !== undefined) {
+        if (Number(maxPrice) < 0) {
+            return res.json({
+                message: "Bad Request",
+                errors: "Maximum price must be greater than or equal to 0"
+            })
+        } else {
+            where.price = {
+                [Op.lte]: Number(maxPrice)
+            }
+        }
+    }
+
     const spots = await Spot.findAll({
-        include: [{
+        where,
+        include: [
+        {
             model: SpotImage
         },
         {
