@@ -238,15 +238,15 @@ router.put('/:spotId', requireAuth, async (req, res, next) => {
         error.errors.country = "Country is required"
     }
 
-    if (!lat) {
+    if (!lat || Number(lat) % 1 === 0) {
         error.errors.lat = "Latitude is not valid"
     }
 
-    if (!lng) {
+    if (!lng || Number(lng) % 1 === 0) {
         error.errors.lng = "Longitude is not valid"
     }
 
-    if (!name || name.length > 50) {
+    if (!name || name.length > 49) {
         error.errors.name = "Name must be less than 50 characters"
     }
 
@@ -367,7 +367,7 @@ router.post('/:spotId/reviews', requireAuth, async (req, res, next) => {
         error.errors = "Review text is required"
     }
 
-    if (!stars) {
+    if (!stars || Number(stars) < 1 || Number(stars) > 5) {
         error.errors = "Stars must be an integer from 1 to 5"
     }
 
