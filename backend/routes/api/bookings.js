@@ -160,8 +160,6 @@ router.delete('/:bookingId', requireAuth, async (req, res, next) => {
         }
     })
 
-    console.log(bookingId.toJSON())
-
     if (!bookingId) {
         res.status(404)
         return res.json({
