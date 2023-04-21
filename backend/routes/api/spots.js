@@ -193,6 +193,8 @@ router.post('/:spotId/images', requireAuth, async (req, res, next) => {
         preview
     })
 
+    await spotId.addSpotImage(newImage) // appends image to spot model instance
+
     return res.json({
         id: newImage.id,
         url: newImage.url,
