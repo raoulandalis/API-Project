@@ -501,17 +501,17 @@ router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
 
         if (startDateObj.getTime() === databaseStart.getTime() || endDateObj.getTime() === databaseEnd.getTime()) {
             error.errors.startDate = "Start date conflicts with an existing booking",
-            error.errors.endDate = "End date conflicts with an existing booking"
+                error.errors.endDate = "End date conflicts with an existing booking"
         }
 
         if (startDateObj.getTime() > databaseStart.getTime() && startDateObj.getTime() < databaseEnd.getTime() || endDateObj.getTime() > databaseStart.getTime() && endDateObj.getTime() < databaseEnd.getTime()) {
             error.errors.startDate = "Start date conflicts with an existing booking",
-            error.errors.endDate = "End date conflicts with an existing booking"
+                error.errors.endDate = "End date conflicts with an existing booking"
         }
 
         if (startDateObj.getTime() > databaseStart.getTime() && endDateObj.getTime() < databaseEnd.getTime()) {
             error.errors.startDate = "Start date conflicts with an existing booking",
-            error.errors.endDate = "End date conflicts with an existing booking"
+                error.errors.endDate = "End date conflicts with an existing booking"
         }
 
     })
@@ -668,12 +668,12 @@ router.get('/', async (req, res, next) => {
     const spots = await Spot.findAll({
         where,
         include: [
-        {
-            model: SpotImage
-        },
-        {
-            model: Review
-        }
+            {
+                model: SpotImage
+            },
+            {
+                model: Review
+            }
         ],
         ...pagination
     })
