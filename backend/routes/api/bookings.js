@@ -34,20 +34,37 @@ router.get('/current', requireAuth, async (req, res, next) => {
 
     const allBookingsArr = []
 
-    allBookings.forEach(ele => {
-        allBookingsArr.push(ele.toJSON())
-    })
+    // allBookings.forEach(ele => {
+    //     allBookingsArr.push(ele.toJSON())
+    // })
+
+    for (let i = 0; i < allBookings.length; i++) {
+        allBookingsArr.push(allBookings[i].toJSON());
+    }
 
     const finalBookings = []
-    allBookingsArr.forEach(booking => {
+    // allBookingsArr.forEach(booking => {
 
-        booking.Spot.SpotImages.forEach(ele => {
-            booking.Spot.previewImage = ele.url
-        })
+    //     booking.Spot.SpotImages.forEach(ele => {
+    //         booking.Spot.previewImage = ele.url
+    //     })
+
+    //     delete booking.Spot.SpotImages
+    //     finalBookings.push(booking)
+    // })
+
+    for (let i = 0; i < allBookingsArr.length; i++) {
+        const booking = allBookingsArr[i];
+
+        for (let j = 0; j < booking.Spot.SpotImages.length; j++) {
+            const spotImage = booking.Spot.SpotImages[j];
+
+            booking.Spot.previewImage = spotImage.url
+        }
 
         delete booking.Spot.SpotImages
         finalBookings.push(booking)
-    })
+    }
 
     return res.json({ Bookings: finalBookings })
 })
