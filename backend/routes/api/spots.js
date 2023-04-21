@@ -127,11 +127,11 @@ router.post('/', requireAuth, async (req, res, next) => {
         error.errors.country = "Country is required"
     }
 
-    if (!lat) {
+    if (!lat || Number(lat) % 1 === 0) {
         error.errors.lat = "Latitude is not valid"
     }
 
-    if (!lng) {
+    if (!lng || Number(lng) % 1 === 0) {
         error.errors.lng = "Longitude is not valid"
     }
 
