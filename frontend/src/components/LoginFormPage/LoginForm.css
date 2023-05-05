@@ -1,0 +1,27 @@
+* {
+    background-color: whitesmoke
+}
+
+h1 {
+    display: flex;
+    justify-content: center;
+    color: black
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 25px
+}
+
+label {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+}
+
+button {
+    /* margin-top: 50px; */
+    margin-left: 370px;
+    margin-right: 370px;
+}
