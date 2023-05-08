@@ -1,0 +1,53 @@
+.title-info {
+    margin-left: 50px;
+}
+
+#spotId-main-image {
+    height: 500px;
+}
+
+.more-image {
+    height: 250px;
+    width: 250px;
+}
+
+.image-container {
+    display: flex;
+    margin-left: 50px;
+}
+
+.image-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr
+}
+
+.description-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.left-description {
+    margin-left: 50px;
+}
+
+.right-description {
+    border: 1px solid black;
+    margin-right: 50px;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+.price-star {
+    display: flex;
+    justify-content: space-between;
+    gap: 100px;
+}
+
+#reserve-button {
+    margin-left: 100px;
+    margin-right: 100px;
+    padding-left: 60px;
+    padding-right: 60px;
+}
