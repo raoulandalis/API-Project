@@ -1,3 +1,29 @@
 .hidden {
     display: none;
 }
+
+.active {
+    display: flex;
+}
+
+#profile-button {
+    display: flex;
+    justify-content: flex-end;
+}
+
+#profile-button {
+    margin-right: 50px;
+}
+
+.nav-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+#logo-word {
+    font-size: 25px;
+    padding-top: 10px
+}
