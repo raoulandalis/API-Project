@@ -13,11 +13,9 @@ function Navigation({ isLoaded }) {
 
       <NavLink exact to="/" style={{ textDecoration: "none", fontWeight: "bold", color: "#fd4556"}}>
 
-      <img src="https://i.imgur.com/FIXVRn8.png" style={{ height: "50px", marginLeft: "50px" }} alt="logo"></img>
+      <img id="logo-word" src="https://i.imgur.com/Anomg9X.png" style={{ height: "50px", marginLeft: "50px" }} alt="logo"></img>
 
-      <div id="logo-word">valbnb</div>
       </NavLink>
-
 
       {isLoaded && (
         <ProfileButton user={sessionUser} />

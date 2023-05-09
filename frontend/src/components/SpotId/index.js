@@ -10,7 +10,7 @@ const SpotId = () => {
     const dispatch = useDispatch()
     const { spotId } = useParams()
     const oneSpot = useSelector((state) => state.spots.singleSpot)
-    console.log("LOOK AT ONE SPOT", oneSpot)
+    // console.log("LOOK AT ONE SPOT", oneSpot)
     // console.log("LOOK", oneSpot.SpotImages[4].url)
 
     const [isLoaded, setIsLoaded] = useState(false)
@@ -19,6 +19,10 @@ const SpotId = () => {
         dispatch(getSpotThunk(spotId))
         dispatch(getAllSpotsThunk()).then(() => setIsLoaded(true))
     }, [dispatch])
+
+    const handleReserve = () => {
+        alert("Feature Coming Soon")
+    }
 
     if (!oneSpot) return null
 
@@ -49,7 +53,7 @@ const SpotId = () => {
                     <div><b>${oneSpot.price}</b> night</div>
                     <div>★ {oneSpot.avgStarRating}</div>
                 </div>
-                <button id="reserve-button">Reserve</button>
+                <button onClick={handleReserve} id="reserve-button">Reserve</button>
             </div>
         </div>
         </>
