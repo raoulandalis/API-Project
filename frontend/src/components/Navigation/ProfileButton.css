@@ -1,5 +1,6 @@
 #profile-button {
-    margin-right:  50px;
+    margin-left: -500px;
+    margin-right:  80px;
     padding-left: 10px;
     padding-right: 10px;
 }
@@ -7,3 +8,7 @@
 .profile-dropdown {
     right: 1em
 }
+
+/* .new-spot-link {
+    text-decoration: none;
+} */

@@ -1,0 +1,16 @@
+.top-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form-words {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.img-link-box {
+    display: flex;
+    flex-direction: column;
+}
