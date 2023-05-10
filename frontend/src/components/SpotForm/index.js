@@ -1,7 +1,7 @@
 import React from "react"
 import { useState, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { createSpotThunk } from "../../store/spot"
+import { createSpotThunk, createSpotImageThunk } from "../../store/spot"
 import { useHistory } from "react-router-dom"
 import "./SpotForm.css"
 
@@ -73,11 +73,17 @@ const CreateForm = ({ spot }) => {
                 description,
                 price,
                 lat,
-                lng,
-                image
+                lng
             }
 
             const newSpot = await dispatch(createSpotThunk(payload))
+
+            const imgObj = ({
+                url: image,
+                preview: true
+            })
+
+            const newImage = await dispatch(createSpotImageThunk(newSpot, imgObj))
 
             history.push(`/spots/${newSpot.id}`)
         }

@@ -5,6 +5,7 @@ const GET_ALL_SPOTS = 'spot/getAllSpots'
 const GET_SPOT = 'spot/getSpot'
 const CREATE_SPOT = "spot/createSpot"
 const UPDATE_SPOT = "spot/updateSpot"
+const CREATE_SPOT_IMAGE = "spot/createSpotImage"
 
 // ACTIONS
 const getAllSpots = (spots) => {
@@ -32,6 +33,13 @@ const updateSpot = (spot) => {
     return {
         type: UPDATE_SPOT,
         spot
+    }
+}
+
+const createSpotImage = (img) => {
+    return {
+        type: CREATE_SPOT_IMAGE,
+        img
     }
 }
 
@@ -85,6 +93,20 @@ export const updateSpotThunk = (spot, spotId) => async (dispatch) => {
     }
 }
 
+export const createSpotImageThunk = (newSpot, imgArr) => async (dispatch) => {
+    const response = await csrfFetch(`/api/spots/${newSpot.id}/images`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(imgArr)
+    })
+
+    if (response.ok) {
+        const img = await response.json()
+        dispatch(createSpotImage(img))
+        return img
+    }
+}
+
 // INITIAL STATE
 const initialState = { allSpots: {}, singleSpot: { SpotImages: [] } }
 
@@ -117,6 +139,12 @@ const spotReducer = (state = initialState, action) => {
             const newState = {...state, allSpots: {...state.allSpots}, singleSpot: {...state.singleSpot}}
             // console.log(newState)
             newState.allSpots[action.spot.id] = {...newState.allSpots[action.spotId], ...action.spot}
+        };
+        case CREATE_SPOT_IMAGE: {
+            const newState = {...state, allSpots: {}, singleSpot: {...state.singleSpot, SpotImages: []}}
+
+            newState.singleSpot.SpotImages[action.img.id] = action.img // this might be wrong
+            return newState
         }
         default: return state;
     }
