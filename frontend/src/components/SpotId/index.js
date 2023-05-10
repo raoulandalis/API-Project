@@ -10,7 +10,8 @@ const SpotId = () => {
     const dispatch = useDispatch()
     const { spotId } = useParams()
     const oneSpot = useSelector((state) => state.spots.singleSpot)
-    console.log("LOOK AT ONE SPOT", oneSpot)
+    console.log("hello", oneSpot)
+    // // console.log("LOOK AT ONE SPOT", oneSpot)
     // console.log("LOOK", oneSpot.SpotImages[4].url)
 
     const [isLoaded, setIsLoaded] = useState(false)
@@ -24,14 +25,11 @@ const SpotId = () => {
         alert("Feature Coming Soon")
     }
 
-    // const findPreview = () => {
-    //     const preview = oneSpot.SpotImages.find((preview) => preview.preview === true)
-    //     return preview.url
-    // }
+    const previewImg = oneSpot.SpotImages.find(img => img.preview === true) ? oneSpot.SpotImages.find(img => img.preview === true) : oneSpot.SpotImages[0]
 
-    // console.log(findPreview())
+    console.log('-------->', previewImg)
 
-    if (!oneSpot) return null
+    if(!oneSpot) return null
 
     return isLoaded && (
         <>
@@ -41,7 +39,9 @@ const SpotId = () => {
                     <p className="spotId-location">{oneSpot.city}, {oneSpot.state}, {oneSpot.country}</p>
                 </div>
                 <div className="image-container">
-                    <img id="spotId-main-image" src={oneSpot.SpotImages[4].url} alt="image-screen" />
+                    {previewImg.url && (
+                        <img id="spotId-main-image" src={previewImg.url} alt="image-screen" />
+                    )}
                     <div className="image-grid">
                         {oneSpot.SpotImages[0] && (
                             <img className="more-image" id="top-left" src={oneSpot.SpotImages[0].url} />

@@ -20,6 +20,10 @@ const CreateForm = ({ spot }) => {
     const [lat, setLat] = useState(1)
     const [lng, setLng] = useState(1)
     const [image, setImage] = useState('')
+    const [img2, setImg2] = useState('')
+    const [img3, setImg3] = useState('')
+    const [img4, setImg4] = useState('')
+    const [img5, setImg5] = useState('')
     const [validationErrors, setValidationErrors] = useState({})
     const [submitted, setSubmitted] = useState(false)
 
@@ -183,24 +187,32 @@ const CreateForm = ({ spot }) => {
                             value={image}
                             onChange={(e) => setImage(e.target.value)}
                         />
+                        {validationErrors.images && submitted && <p className="errors">{validationErrors.images}</p>}
                         <input
                             className="form-pic"
                             type="text"
+                            value={img2}
+                            onChange={(e) => setImg2(e.target.value)}
                         />
                         <input
                             className="form-pic"
                             type="text"
+                            value={img3}
+                            onChange={(e) => setImg3(e.target.value)}
                         />
                         <input
                             className="form-pic"
                             type="text"
+                            value={img4}
+                            onChange={(e) => setImg4(e.target.value)}
                         />
                         <input
                             className="form-pic"
                             type="text"
+                            value={img5}
+                            onChange={(e) => setImg5(e.target.value)}
                         />
                     </label>
-                    {validationErrors.images && submitted && <p className="errors">{validationErrors.images}</p>}
 
                     <button type="submit">Create a Spot</button>
                 </form>
