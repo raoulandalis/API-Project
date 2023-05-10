@@ -36,13 +36,22 @@ router.get('/current', requireAuth, async (req, res, next) => {
         const avg = total / spotJSON.Reviews.length
         spotJSON.avgRating = avg
 
-        spotJSON.SpotImages.forEach(ele => {
+        // spotJSON.SpotImages.forEach(ele => {
+        //     if (ele.preview === true) {
+        //         spotJSON.previewImage = ele.url
+        //     } else {
+        //         spotJSON.previewImage = 'No preview available'
+        //     }
+        // })
+
+        for (let i = 0; i < spotJSON.SpotImages.length; i++) {
+            let ele = spotJSON.SpotImages[i];
             if (ele.preview === true) {
                 spotJSON.previewImage = ele.url
             } else {
                 spotJSON.previewImage = 'No preview available'
             }
-        })
+        }
 
         delete spotJSON.Reviews // deletes Reviews included
         delete spotJSON.SpotImages // deletes SpotImages included
@@ -691,13 +700,22 @@ router.get('/', async (req, res, next) => {
         const avg = total / spotJSON.Reviews.length
         spotJSON.avgRating = avg
 
-        spotJSON.SpotImages.forEach(ele => {
+        // spotJSON.SpotImages.forEach(ele => {
+        //     if (ele.preview === true) {
+        //         spotJSON.previewImage = ele.url
+        //     } else {
+        //         spotJSON.previewImage = 'No preview available'
+        //     }
+        // })
+
+        for (let i = 0; i < spotJSON.SpotImages.length; i++) {
+            let ele = spotJSON.SpotImages[i];
             if (ele.preview === true) {
                 spotJSON.previewImage = ele.url
             } else {
                 spotJSON.previewImage = 'No preview available'
             }
-        })
+        }
 
         delete spotJSON.Reviews // deletes Reviews included
         delete spotJSON.SpotImages // deletes SpotImages included
