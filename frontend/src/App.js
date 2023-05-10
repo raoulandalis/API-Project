@@ -7,6 +7,7 @@ import Spots from "./components/Spot"
 import SpotId from "./components/SpotId"
 import CreateForm from "./components/SpotForm";
 import SpotUser from "./components/SpotUser"
+import SpotUpdateForm from "./components/SpotUpdateForm";
 
 function App() {
   const dispatch = useDispatch();
@@ -28,6 +29,9 @@ function App() {
         </Route>
         <Route path="/spots/current">
           <SpotUser/>
+        </Route>
+        <Route path="/spots/:spotId/edit">
+          <SpotUpdateForm />
         </Route>
         <Route path="/spots/:spotId">
           <SpotId/>

@@ -47,7 +47,7 @@ const SpotUser = () => {
                         <div className="manage-country">{spot.country}</div>
                         <div className="manage-price"><b>${spot.price}</b> night</div>
                         <div className="update-delete-button">
-                            <NavLink style={{ textDecoration: "none" }} to="/spots/new" id="update-button">Update</NavLink>
+                            <NavLink style={{ textDecoration: "none" }} to={`/spots/${spot.id}/edit`} id="update-button">Update</NavLink>
                             <NavLink style={{ textDecoration: "none" }} to="" id="delete-button">Delete</NavLink>
                         </div>
                     </div>
