@@ -127,11 +127,11 @@ router.post('/', requireAuth, async (req, res, next) => {
         error.errors.country = "Country is required"
     }
 
-    if (!lat || Number(lat) % 1 === 0) {
+    if (!lat || typeof lat !== "number") {
         error.errors.lat = "Latitude is not valid"
     }
 
-    if (!lng || Number(lng) % 1 === 0) {
+    if (!lng || typeof lng !== "number") {
         error.errors.lng = "Longitude is not valid"
     }
 
@@ -240,11 +240,11 @@ router.put('/:spotId', requireAuth, async (req, res, next) => {
         error.errors.country = "Country is required"
     }
 
-    if (!lat || Number(lat) % 1 === 0) {
+    if (!lat || typeof lat !== "number") {
         error.errors.lat = "Latitude is not valid"
     }
 
-    if (!lng || Number(lng) % 1 === 0) {
+    if (!lng || typeof lng !== "number") {
         error.errors.lng = "Longitude is not valid"
     }
 

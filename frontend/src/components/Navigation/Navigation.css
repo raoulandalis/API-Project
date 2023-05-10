@@ -6,24 +6,26 @@
     display: flex;
 }
 
-#profile-button {
+/* #profile-button {
     display: flex;
     justify-content: flex-end;
 }
 
 #profile-button {
     margin-right: 50px;
-}
+} */
 
 .nav-bar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 50px;
-    margin-bottom: 50px;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgb(173, 173, 173);
 }
 
-#logo-word {
-    font-size: 25px;
-    padding-top: 10px
-}
+ul {
+    list-style: none;
+    position: fixed;
+  }
