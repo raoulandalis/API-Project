@@ -6,6 +6,7 @@ const GET_SPOT = 'spot/getSpot'
 const CREATE_SPOT = "spot/createSpot"
 const UPDATE_SPOT = "spot/updateSpot"
 const CREATE_SPOT_IMAGE = "spot/createSpotImage"
+const DELETE_SPOT = "spot/deleteSpot"
 
 // ACTIONS
 const getAllSpots = (spots) => {
@@ -40,6 +41,13 @@ const createSpotImage = (img) => {
     return {
         type: CREATE_SPOT_IMAGE,
         img
+    }
+}
+
+const deleteSpot = (spotId) => {
+    return {
+        type: DELETE_SPOT,
+        spotId
     }
 }
 
@@ -107,6 +115,17 @@ export const createSpotImageThunk = (newSpot, imgArr) => async (dispatch) => {
     }
 }
 
+export const deleteSpotThunk = (spotId) => async (dispatch) => {
+    const response = await csrfFetch(`/api/spots/${spotId}`, {
+        method: 'DELETE'
+    })
+
+    if (response.ok) {
+        dispatch(deleteSpot(spotId))
+        // return true
+    }
+}
+
 // INITIAL STATE
 const initialState = { allSpots: {}, singleSpot: { SpotImages: [] } }
 
@@ -144,6 +163,12 @@ const spotReducer = (state = initialState, action) => {
             const newState = {...state, allSpots: {}, singleSpot: {...state.singleSpot, SpotImages: []}}
 
             newState.singleSpot.SpotImages[action.img.id] = action.img // this might be wrong
+            return newState
+        };
+        case DELETE_SPOT: {
+            const newState = {...state, allSpots: {}, singleSpot: {...state.singleSpot}}
+            delete newState.allSpots[action.spotId]
+            delete newState.singleSpot[action.spotId]
             return newState
         }
         default: return state;
