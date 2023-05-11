@@ -25,11 +25,13 @@ const SpotId = () => {
         alert("Feature Coming Soon")
     }
 
-    // const previewImg = oneSpot.SpotImages.find(img => img.preview === true)
+    const previewImg = oneSpot.SpotImages.find(img => img.preview === true)
 
     // console.log('-------->', previewImg.url)
 
-    if(!oneSpot) return null
+    // console.log('------->', oneSpot.SpotImages[0])
+
+    if (!oneSpot) return null
 
     return isLoaded && (
         <>
@@ -39,9 +41,9 @@ const SpotId = () => {
                     <p className="spotId-location">{oneSpot.city}, {oneSpot.state}, {oneSpot.country}</p>
                 </div>
                 <div className="image-container">
-                    {oneSpot.SpotImages[4].url && (
-                        <img id="spotId-main-image" src={oneSpot.SpotImages[4].url} alt="image-screen" />
-                    )}
+
+                    <img id="spotId-main-image" src={previewImg.url} alt="image-screen" />
+
                     <div className="image-grid">
                         {oneSpot.SpotImages[0] && (
                             <img className="more-image" id="top-left" src={oneSpot.SpotImages[0].url} />

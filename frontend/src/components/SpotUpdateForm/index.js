@@ -21,11 +21,11 @@ const SpotUpdateForm = () => {
     const [price, setPrice] = useState('')
     const [lat, setLat] = useState(1)
     const [lng, setLng] = useState(1)
-    const [image, setImage] = useState('')
-    const [img2, setImg2] = useState('')
-    const [img3, setImg3] = useState('')
-    const [img4, setImg4] = useState('')
-    const [img5, setImg5] = useState('')
+    // const [image, setImage] = useState('')
+    // const [img2, setImg2] = useState('')
+    // const [img3, setImg3] = useState('')
+    // const [img4, setImg4] = useState('')
+    // const [img5, setImg5] = useState('')
     const [validationErrors, setValidationErrors] = useState({})
     const [submitted, setSubmitted] = useState(false)
 
@@ -55,10 +55,10 @@ const SpotUpdateForm = () => {
 
         if (!price) errors.price = "Price is required"
 
-        if (!image) errors.image = "Preview image is required"
+        // if (!image) errors.image = "Preview image is required"
 
         setValidationErrors(errors)
-    }, [country, address, city, state, description, name, price, image])
+    }, [country, address, city, state, description, name, price])
 
     const onSubmit = async (e) => {
         e.preventDefault()
@@ -75,8 +75,7 @@ const SpotUpdateForm = () => {
                 description,
                 price,
                 lat,
-                lng,
-                image
+                lng
             }
 
             console.log(payload)
@@ -179,7 +178,7 @@ const SpotUpdateForm = () => {
                         />
                     </label>
                     {validationErrors.price && submitted && <p className="errors">{validationErrors.price}</p>}
-                    <div className="form-words">
+                    {/* <div className="form-words">
                     <h3>Liven up your spot with photos</h3>
                         <p>Submit a link to at least one photo to publish your spot
                         </p>
@@ -216,7 +215,7 @@ const SpotUpdateForm = () => {
                             value={img5}
                             onChange={(e) => setImg5(e.target.value)}
                         />
-                    </label>
+                    </label> */}
 
                     <button type="submit">Create a Spot</button>
                 </form>

@@ -78,14 +78,18 @@ const CreateForm = ({ spot }) => {
 
             const newSpot = await dispatch(createSpotThunk(payload))
 
-            const imgObj = ({
-                url: image,
-                preview: true
-            })
 
-            const newImage = await dispatch(createSpotImageThunk(newSpot, imgObj))
 
-            history.push(`/spots/${newSpot.id}`)
+            if (newSpot) {
+                const imgObj = ({
+                    url: image,
+                    preview: true
+                })
+                await dispatch(createSpotImageThunk(newSpot.id, imgObj))
+                history.push(`/spots/${newSpot.id}`)
+            }
+
+
         }
     }
 

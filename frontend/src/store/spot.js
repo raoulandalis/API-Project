@@ -102,9 +102,10 @@ export const updateSpotThunk = (spot, spotId) => async (dispatch) => {
 }
 
 export const createSpotImageThunk = (newSpot, imgArr) => async (dispatch) => {
-    const response = await csrfFetch(`/api/spots/${newSpot.id}/images`, {
+
+    console.log('this is newSpot', newSpot, imgArr)
+    const response = await csrfFetch(`/api/spots/${newSpot}/images`, {
         method: 'POST',
-        headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(imgArr)
     })
 
@@ -160,10 +161,15 @@ const spotReducer = (state = initialState, action) => {
             newState.allSpots[action.spot.id] = {...newState.allSpots[action.spotId], ...action.spot}
         };
         case CREATE_SPOT_IMAGE: {
-            const newState = {...state, allSpots: {}, singleSpot: {...state.singleSpot, SpotImages: []}}
-
-            newState.singleSpot.SpotImages[action.img.id] = action.img // this might be wrong
+            const newState = {...state, allSpots: {}, singleSpot: {...state.singleSpot}}
+            newState.singleSpot.SpotImages = [action.img]
+            console.log('this is new state', newState)
+            // newState.singleSpot.SpotImages[action.img.id] = action.img // this might be wrong
+            console.log('this is action img', action.img)
             return newState
+            // let SpotImage = [action.img]
+            // const newState = {...state, singleSpot: SpotImage}
+            // return newState
         };
         case DELETE_SPOT: {
             const newState = {...state, allSpots: {}, singleSpot: {...state.singleSpot}}
