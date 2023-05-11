@@ -13,7 +13,6 @@ const DeleteModal = ({spotId}) => {
         await dispatch(deleteSpotThunk(spotId))
         history.push("/spots/current")
         closeModal()
-        window.location.reload(false);
     }
 
     const noButton = async () => {

@@ -85,3 +85,12 @@
     display: flex;
     margin-left: 50px;
 }
+
+#radiant-spot {
+    width: 30px;
+    /* border: 1px solid black; */
+}
+
+.inside-price-star {
+    display: flex;
+}

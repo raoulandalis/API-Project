@@ -5,6 +5,7 @@ import { getAllSpotsThunk } from '../../store/spot';
 import { NavLink } from 'react-router-dom';
 import DeleteModal from '../DeleteModal';
 import OpenModalButton from '../OpenModalButton';
+import Radiant from "../../assets/radiant-new-removebg-preview.png"
 
 
 const SpotUser = () => {
@@ -42,7 +43,10 @@ const SpotUser = () => {
                 {spotsUser.map(spot => (
                     <div className="spot-card">
                         <img id="spot-card-img" src={`${spot.previewImage}`} alt="img" />
-                        <div className="manage-review"><b>★ {spot.avgRating}</b></div>
+                        <div className="manage-review">
+                            <img id="radiant-spot" src={Radiant}/>
+                            <b>{spot.avgRating.toFixed(1)}</b>
+                        </div>
                         <div className="manage-city">{spot.city}, {spot.state}</div>
                         <div className="manage-country">{spot.country}</div>
                         <div className="manage-price"><b>${spot.price}</b> night</div>

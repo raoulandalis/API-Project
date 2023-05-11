@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom"
 import { useEffect, useState } from "react"
 import { getAllSpotsThunk } from "../../store/spot"
 import SpotIdReview from "./SpotIdReview"
+import Radiant from "../../assets/radiant-new-removebg-preview.png"
 import "./SpotId.css"
 import "./SpotIdReview.css"
 
@@ -48,7 +49,7 @@ const SpotId = () => {
 
     // console.log('------->', oneSpot.SpotImages[0])
 
-    if (!oneSpot) return null
+    if (!oneSpot.SpotImages) return null
 
     return isLoaded && (
         <>
@@ -86,7 +87,12 @@ const SpotId = () => {
                     <div className="price-star">
                         <div><b>${oneSpot.price}</b> night</div>
                         {oneSpot.avgStarRating && (
-                            <div>🌟 {oneSpot.avgStarRating.toFixed(1)}</div>
+                            <>
+                            <div className="inside-price-star">
+                            <div><img id="radiant-spot" src={Radiant}/></div>
+                            <div>{oneSpot.avgStarRating.toFixed(1)}</div>
+                            </div>
+                            </>
                         )}
                     </div>
                     <button onClick={handleReserve} id="reserve-button">Reserve</button>
@@ -94,7 +100,8 @@ const SpotId = () => {
             </div>
             <div className="reviews-container">
                 <div className="top-reviews">
-                    <div>🌟 {oneSpot.avgStarRating} · {oneSpot.numReviews} reviews</div>
+                    <div><img id="radiant-spot" src={Radiant}/></div>
+                    <div>{oneSpot.avgStarRating.toFixed(1)} · {oneSpot.numReviews} reviews</div>
                 </div>
                 <SpotIdReview spotId={spotId}/>
             </div>
