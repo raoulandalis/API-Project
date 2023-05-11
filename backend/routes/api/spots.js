@@ -36,13 +36,22 @@ router.get('/current', requireAuth, async (req, res, next) => {
         const avg = total / spotJSON.Reviews.length
         spotJSON.avgRating = avg
 
-        spotJSON.SpotImages.forEach(ele => {
+        // spotJSON.SpotImages.forEach(ele => {
+        //     if (ele.preview === true) {
+        //         spotJSON.previewImage = ele.url
+        //     } else {
+        //         spotJSON.previewImage = 'No preview available'
+        //     }
+        // })
+
+        for (let i = 0; i < spotJSON.SpotImages.length; i++) {
+            let ele = spotJSON.SpotImages[i];
             if (ele.preview === true) {
                 spotJSON.previewImage = ele.url
             } else {
                 spotJSON.previewImage = 'No preview available'
             }
-        })
+        }
 
         delete spotJSON.Reviews // deletes Reviews included
         delete spotJSON.SpotImages // deletes SpotImages included
@@ -176,7 +185,7 @@ router.post('/', requireAuth, async (req, res, next) => {
 
 router.post('/:spotId/images', requireAuth, async (req, res, next) => {
     const { url, preview } = req.body
-
+    console.log('this is req body', req.body)
     const user = req.user
 
     const spotId = await Spot.findByPk(req.params.spotId)
@@ -195,10 +204,16 @@ router.post('/:spotId/images', requireAuth, async (req, res, next) => {
 
     await spotId.addSpotImage(newImage) // appends image to spot model instance
 
+    // const spotImage = await SpotImage.create({
+    //     spotId: +req.params.spotId,
+    //     url: url,
+    //     preview: preview
+    // })
+
+    // console.log('this is spot image', spotImage)
     return res.json({
-        id: newImage.id,
-        url: newImage.url,
-        preview: newImage.preview
+        url,
+        preview: preview
     })
 })
 
@@ -691,13 +706,22 @@ router.get('/', async (req, res, next) => {
         const avg = total / spotJSON.Reviews.length
         spotJSON.avgRating = avg
 
-        spotJSON.SpotImages.forEach(ele => {
+        // spotJSON.SpotImages.forEach(ele => {
+        //     if (ele.preview === true) {
+        //         spotJSON.previewImage = ele.url
+        //     } else {
+        //         spotJSON.previewImage = 'No preview available'
+        //     }
+        // })
+
+        for (let i = 0; i < spotJSON.SpotImages.length; i++) {
+            let ele = spotJSON.SpotImages[i];
             if (ele.preview === true) {
                 spotJSON.previewImage = ele.url
             } else {
                 spotJSON.previewImage = 'No preview available'
             }
-        })
+        }
 
         delete spotJSON.Reviews // deletes Reviews included
         delete spotJSON.SpotImages // deletes SpotImages included

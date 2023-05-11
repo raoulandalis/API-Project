@@ -3,15 +3,17 @@ import { getSpotThunk } from "../../store/spot"
 import { useParams } from "react-router-dom"
 import { useEffect, useState } from "react"
 import { getAllSpotsThunk } from "../../store/spot"
+import SpotIdReview from "./SpotIdReview"
 import "./SpotId.css"
+import "./SpotIdReview.css"
 
 
 const SpotId = () => {
     const dispatch = useDispatch()
     const { spotId } = useParams()
     const oneSpot = useSelector((state) => state.spots.singleSpot)
-    console.log("hello", oneSpot)
-    // // console.log("LOOK AT ONE SPOT", oneSpot)
+    // console.log("hello", oneSpot)
+    console.log("LOOK AT ONE SPOT", oneSpot)
     // console.log("LOOK", oneSpot.SpotImages[4].url)
 
     const [isLoaded, setIsLoaded] = useState(false)
@@ -19,29 +21,44 @@ const SpotId = () => {
     useEffect(() => {
         dispatch(getSpotThunk(spotId))
         dispatch(getAllSpotsThunk()).then(() => setIsLoaded(true))
+
+        const interval = setInterval(() => {
+
+        }, 3000)
+
+        return () => {
+            clearInterval(interval)
+        }
+
     }, [dispatch])
 
     const handleReserve = () => {
         alert("Feature Coming Soon")
     }
 
-    const previewImg = oneSpot.SpotImages.find(img => img.preview === true) ? oneSpot.SpotImages.find(img => img.preview === true) : oneSpot.SpotImages[0]
+    let previewImg;
 
-    console.log('-------->', previewImg)
+    if(oneSpot.SpotImages.length) {
+    previewImg = oneSpot.SpotImages.find(img => img.preview === true)
+    }
 
-    if(!oneSpot) return null
+    // console.log('-------->', previewImg.url)
+
+    // console.log('------->', oneSpot.SpotImages[0])
+
+    if (!oneSpot) return null
 
     return isLoaded && (
         <>
             <div className="spotId-container">
                 <div className="title-info">
-                    <b className="spotId-name">{oneSpot.name}</b>
+                    <h2 className="spotId-name">{oneSpot.name}</h2>
                     <p className="spotId-location">{oneSpot.city}, {oneSpot.state}, {oneSpot.country}</p>
                 </div>
                 <div className="image-container">
-                    {previewImg.url && (
-                        <img id="spotId-main-image" src={previewImg.url} alt="image-screen" />
-                    )}
+
+                    <img id="spotId-main-image" src={previewImg.url} alt="image-screen" />
+
                     <div className="image-grid">
                         {oneSpot.SpotImages[0] && (
                             <img className="more-image" id="top-left" src={oneSpot.SpotImages[0].url} />
@@ -67,11 +84,17 @@ const SpotId = () => {
                     <div className="price-star">
                         <div><b>${oneSpot.price}</b> night</div>
                         {oneSpot.avgStarRating && (
-                            <div>★ {oneSpot.avgStarRating}</div>
+                            <div>🌟 {oneSpot.avgStarRating}</div>
                         )}
                     </div>
                     <button onClick={handleReserve} id="reserve-button">Reserve</button>
                 </div>
+            </div>
+            <div className="reviews-container">
+                <div className="top-reviews">
+                    <div>🌟 {oneSpot.avgStarRating} · {oneSpot.numReviews} reviews</div>
+                </div>
+                <SpotIdReview spotId={spotId}/>
             </div>
         </>
     )

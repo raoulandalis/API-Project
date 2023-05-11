@@ -30,6 +30,7 @@
 .image-container {
     display: flex;
     margin-left: 50px;
+    width: fit-content;
 }
 
 .image-grid {
@@ -41,19 +42,25 @@
 .description-container {
     display: flex;
     justify-content: space-between;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgb(175, 173, 173);
+    margin-left: 50px;
+    margin-right: 50px;
 }
 
-.left-description {
+/* .left-description {
     margin-left: 50px;
-}
+} */
 
 .right-description {
-    border: 1px solid black;
-    margin-right: 115px;
+    border: 2px solid black;
+    border-radius: 10px 10px 10px;
+    margin-right: 50px;
     padding-top: 25px;
     padding-bottom: 25px;
-    padding-right: 10px;
-    padding-left: 10px;
+    padding-right: 20px;
+    padding-left: 20px;
+    width: fit-content
 }
 
 .price-star {
@@ -63,8 +70,18 @@
 }
 
 #reserve-button {
-    margin-left: 100px;
-    margin-right: 100px;
-    padding-left: 60px;
-    padding-right: 60px;
+    margin-top: 10px;
+    margin-left: 50px;
+    margin-right: 50px;
+    padding-left: 80px;
+    padding-right: 80px;
+    background-color: #FD4556;
+    color: white;
+    box-shadow: 3px 3px 3px rgba(13, 13, 14, 0.2);
+}
+
+.top-reviews {
+    margin-top: 1rem;
+    display: flex;
+    margin-left: 50px;
 }
