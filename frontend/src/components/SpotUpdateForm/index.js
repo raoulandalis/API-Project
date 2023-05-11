@@ -2,7 +2,7 @@ import React from "react"
 import { useState, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useHistory, useParams } from "react-router-dom"
-import {updateSpotThunk} from "../../store/spot"
+import { updateSpotThunk } from "../../store/spot"
 import "../SpotForm/SpotForm.css"
 
 
@@ -10,7 +10,7 @@ const SpotUpdateForm = () => {
     const currentUser = useSelector((state) => state.session.user)
     const history = useHistory()
     const dispatch = useDispatch()
-    const {spotId} = useParams()
+    const { spotId } = useParams()
 
     const [country, setCountry] = useState('')
     const [address, setAddress] = useState('')
@@ -29,7 +29,7 @@ const SpotUpdateForm = () => {
     const [validationErrors, setValidationErrors] = useState({})
     const [submitted, setSubmitted] = useState(false)
 
-    if(!currentUser) {
+    if (!currentUser) {
         history.push("/")
     }
 
@@ -78,7 +78,7 @@ const SpotUpdateForm = () => {
                 lng
             }
 
-            console.log(payload)
+            // console.log(payload)
 
             const updatedSpot = await dispatch(updateSpotThunk(payload, spotId))
 
@@ -142,7 +142,9 @@ const SpotUpdateForm = () => {
                         </p>
                     </div>
                     <label>
-                        <input
+                        <textarea
+                            rows="5"
+                            cols="50"
                             id="form-description"
                             type="text"
                             value={description}
@@ -151,7 +153,7 @@ const SpotUpdateForm = () => {
                     </label>
                     {validationErrors.description && submitted && <p className="errors">{validationErrors.description}</p>}
                     <div className="form-words">
-                    <h3>Create a title for your spot</h3>
+                        <h3>Create a title for your spot</h3>
                         <p>Catch guests' attention with a spot title that highlights what makes your place special.
                         </p>
                     </div>
@@ -165,7 +167,7 @@ const SpotUpdateForm = () => {
                     </label>
                     {validationErrors.name && submitted && <p className="errors">{validationErrors.name}</p>}
                     <div className="form-words">
-                    <h3>Set a base price for your spot</h3>
+                        <h3>Set a base price for your spot</h3>
                         <p>Competitive pricing can help your listing stand out and rank higher in search results.
                         </p>
                     </div>

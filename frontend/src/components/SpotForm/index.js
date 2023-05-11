@@ -149,7 +149,9 @@ const CreateForm = ({ spot }) => {
                         </p>
                     </div>
                     <label>
-                        <input
+                        <textarea
+                            rows= "5"
+                            cols= "50"
                             id="form-description"
                             type="text"
                             value={description}

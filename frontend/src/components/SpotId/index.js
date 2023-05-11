@@ -36,11 +36,13 @@ const SpotId = () => {
         alert("Feature Coming Soon")
     }
 
-    let previewImg;
+    // let previewImg;
 
-    if(oneSpot.SpotImages.length) {
-    previewImg = oneSpot.SpotImages.find(img => img.preview === true)
-    }
+    // if(oneSpot.SpotImages.length) {
+    // previewImg = oneSpot.SpotImages.find(img => img.preview === true)
+    // }
+
+    // const previewImg = oneSpot?.SpotImages?.find(img => img.preview === true)
 
     // console.log('-------->', previewImg.url)
 
@@ -57,7 +59,7 @@ const SpotId = () => {
                 </div>
                 <div className="image-container">
 
-                    <img id="spotId-main-image" src={previewImg.url} alt="image-screen" />
+                    <img id="spotId-main-image" src={oneSpot?.SpotImages?.find(img => img.preview === true).url} alt="image-screen" />
 
                     <div className="image-grid">
                         {oneSpot.SpotImages[0] && (
