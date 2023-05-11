@@ -185,7 +185,7 @@ router.post('/', requireAuth, async (req, res, next) => {
 
 router.post('/:spotId/images', requireAuth, async (req, res, next) => {
     const { url, preview } = req.body
-
+    console.log('this is req body', req.body)
     const user = req.user
 
     const spotId = await Spot.findByPk(req.params.spotId)
@@ -204,10 +204,16 @@ router.post('/:spotId/images', requireAuth, async (req, res, next) => {
 
     await spotId.addSpotImage(newImage) // appends image to spot model instance
 
+    // const spotImage = await SpotImage.create({
+    //     spotId: +req.params.spotId,
+    //     url: url,
+    //     preview: preview
+    // })
+
+    // console.log('this is spot image', spotImage)
     return res.json({
-        id: newImage.id,
-        url: newImage.url,
-        preview: newImage.preview
+        url,
+        preview: preview
     })
 })
 
