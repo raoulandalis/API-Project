@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import * as sessionActions from '../../store/session';
 import OpenModalMenuItem from './OpenModalMenuItem';
 import LoginFormModal from '../LoginFormModal';
@@ -40,12 +40,13 @@ function ProfileButton({ user }) {
   };
 
   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
+  const navLinkSpotName = "nav-link-create" + (user ? '' : ' hidden')
 
   return (
     <>
       <div className="new-spot-link">
         <div>
-          <NavLink to="/spots/new" style={{ textDecoration: 'none' }}>
+          <NavLink className={navLinkSpotName} to="/spots/new" style={{ textDecoration: 'none' }}>
             Create a New Spot
           </NavLink>
         </div>

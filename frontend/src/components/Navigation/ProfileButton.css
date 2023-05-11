@@ -20,6 +20,14 @@
     margin-left: 50px;
 }
 
+.nav-link-create {
+    display: flex
+}
+
+.hidden {
+    display: none;
+}
+
 /* .new-spot-link {
     text-decoration: none;
 } */

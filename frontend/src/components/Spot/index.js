@@ -20,10 +20,12 @@ const Spots = () => {
                 {allSpots.map(spot => (
                     <NavLink to={`/spots/${spot.id}`}>
                         <div className="ind-spot">
-                            <img id="spot-img" src={`${spot.previewImage}`} alt="img"/>
-                            <div className="review"><b>★ {spot.avgRating}</b></div>
-                            <div className="city">{spot.city}, {spot.state}</div>
-                            <div className="country">{spot.country}</div>
+                            <img id="spot-img" src={`${spot.previewImage}`} alt="img" />
+                            <div className="under-img">
+                                <div className="city">{spot.city}, {spot.state}</div>
+                                <div className="review"><b>🌟 {spot.avgRating}</b></div>
+                            </div>
+                            {/* <div className="country">{spot.country}</div> */}
                             <div className="price"><b>${spot.price}</b> night</div>
                         </div>
                     </NavLink>

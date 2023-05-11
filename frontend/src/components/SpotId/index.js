@@ -5,6 +5,7 @@ import { useEffect, useState } from "react"
 import { getAllSpotsThunk } from "../../store/spot"
 import SpotIdReview from "./SpotIdReview"
 import "./SpotId.css"
+import "./SpotIdReview.css"
 
 
 const SpotId = () => {
@@ -20,6 +21,15 @@ const SpotId = () => {
     useEffect(() => {
         dispatch(getSpotThunk(spotId))
         dispatch(getAllSpotsThunk()).then(() => setIsLoaded(true))
+
+        const interval = setInterval(() => {
+
+        }, 3000)
+
+        return () => {
+            clearInterval(interval)
+        }
+
     }, [dispatch])
 
     const handleReserve = () => {
@@ -42,7 +52,7 @@ const SpotId = () => {
         <>
             <div className="spotId-container">
                 <div className="title-info">
-                    <b className="spotId-name">{oneSpot.name}</b>
+                    <h2 className="spotId-name">{oneSpot.name}</h2>
                     <p className="spotId-location">{oneSpot.city}, {oneSpot.state}, {oneSpot.country}</p>
                 </div>
                 <div className="image-container">
@@ -74,7 +84,7 @@ const SpotId = () => {
                     <div className="price-star">
                         <div><b>${oneSpot.price}</b> night</div>
                         {oneSpot.avgStarRating && (
-                            <div>★ {oneSpot.avgStarRating}</div>
+                            <div>🌟 {oneSpot.avgStarRating}</div>
                         )}
                     </div>
                     <button onClick={handleReserve} id="reserve-button">Reserve</button>
@@ -82,7 +92,7 @@ const SpotId = () => {
             </div>
             <div className="reviews-container">
                 <div className="top-reviews">
-                    <div>★ {oneSpot.avgStarRating} · {oneSpot.numReviews} reviews</div>
+                    <div>🌟 {oneSpot.avgStarRating} · {oneSpot.numReviews} reviews</div>
                 </div>
                 <SpotIdReview spotId={spotId}/>
             </div>

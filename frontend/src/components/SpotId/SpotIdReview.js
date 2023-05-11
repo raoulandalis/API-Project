@@ -66,8 +66,8 @@ const SpotIdReview = ({spotId}) => {
             {reviewArr.map((review) => (
                 <>
                 <h3 className="review-name">{review.User.firstName}</h3>
-                <h4>{month} 2022</h4>
-                <p>{review.review}</p>
+                <h5>{month} 2022</h5>
+                <h4>{review.review}</h4>
                 </>
             ))}
         </div>
