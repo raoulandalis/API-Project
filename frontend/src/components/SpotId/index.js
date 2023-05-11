@@ -86,7 +86,7 @@ const SpotId = () => {
                     <div className="price-star">
                         <div><b>${oneSpot.price}</b> night</div>
                         {oneSpot.avgStarRating && (
-                            <div>🌟 {oneSpot.avgStarRating}</div>
+                            <div>🌟 {oneSpot.avgStarRating.toFixed(1)}</div>
                         )}
                     </div>
                     <button onClick={handleReserve} id="reserve-button">Reserve</button>

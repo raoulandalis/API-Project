@@ -2,6 +2,8 @@ import {useDispatch, useSelector} from "react-redux"
 import { useState, useEffect } from "react"
 import { getReviewsThunk } from "../../store/review"
 import { getSpotThunk } from "../../store/spot"
+import OpenModalButton from '../OpenModalButton'
+import CreateReviewModal from "./CreateReviewModal"
 import './SpotIdReview.css'
 
 const SpotIdReview = ({spotId}) => {
@@ -62,10 +64,16 @@ const SpotIdReview = ({spotId}) => {
 
     return (
         <>
+        <div>
+            <OpenModalButton
+                buttonText='Post Your Review'
+                modalComponent={<CreateReviewModal spotId={spotId}/>}
+            />
+        </div>
         <div className="all-reviews-grid">
             {reviewArr.map((review) => (
                 <>
-                <h3 className="review-name">{review.User.firstName}</h3>
+                <h3 className="review-name">{review?.User?.firstName}</h3>
                 <h5>{month} 2022</h5>
                 <h4>{review.review}</h4>
                 </>
