@@ -3,6 +3,7 @@ import { getSpotThunk } from "../../store/spot"
 import { useParams } from "react-router-dom"
 import { useEffect, useState } from "react"
 import { getAllSpotsThunk } from "../../store/spot"
+import SpotIdReview from "./SpotIdReview"
 import "./SpotId.css"
 
 
@@ -11,7 +12,7 @@ const SpotId = () => {
     const { spotId } = useParams()
     const oneSpot = useSelector((state) => state.spots.singleSpot)
     // console.log("hello", oneSpot)
-    // // console.log("LOOK AT ONE SPOT", oneSpot)
+    console.log("LOOK AT ONE SPOT", oneSpot)
     // console.log("LOOK", oneSpot.SpotImages[4].url)
 
     const [isLoaded, setIsLoaded] = useState(false)
@@ -25,7 +26,11 @@ const SpotId = () => {
         alert("Feature Coming Soon")
     }
 
-    const previewImg = oneSpot.SpotImages.find(img => img.preview === true)
+    let previewImg;
+
+    if(oneSpot.SpotImages.length) {
+    previewImg = oneSpot.SpotImages.find(img => img.preview === true)
+    }
 
     // console.log('-------->', previewImg.url)
 
@@ -74,6 +79,12 @@ const SpotId = () => {
                     </div>
                     <button onClick={handleReserve} id="reserve-button">Reserve</button>
                 </div>
+            </div>
+            <div className="reviews-container">
+                <div className="top-reviews">
+                    <div>★ {oneSpot.avgStarRating} · {oneSpot.numReviews} reviews</div>
+                </div>
+                <SpotIdReview spotId={spotId}/>
             </div>
         </>
     )
