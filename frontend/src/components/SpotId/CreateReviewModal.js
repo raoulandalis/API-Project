@@ -3,6 +3,7 @@ import { useHistory } from "react-router"
 import { useModal } from "../../context/Modal"
 import { useEffect, useState } from "react"
 import { createReviewThunk } from "../../store/review"
+import { getSpotThunk } from "../../store/spot"
 import "./CreateReviewModal.css"
 
 const CreateReviewModal = ({ spotId }) => {

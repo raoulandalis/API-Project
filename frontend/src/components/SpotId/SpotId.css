@@ -94,3 +94,7 @@
 .inside-price-star {
     display: flex;
 }
+
+#num-reviews {
+    margin-left: 10px;
+}

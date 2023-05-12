@@ -14,7 +14,7 @@ const SpotId = () => {
     const { spotId } = useParams()
     const oneSpot = useSelector((state) => state.spots.singleSpot)
     // console.log("hello", oneSpot)
-    console.log("LOOK AT ONE SPOT", oneSpot)
+    // console.log("LOOK AT ONE SPOT", oneSpot)
     // console.log("LOOK", oneSpot.SpotImages[4].url)
 
     const [isLoaded, setIsLoaded] = useState(false)
@@ -60,7 +60,7 @@ const SpotId = () => {
                 </div>
                 <div className="image-container">
 
-                    <img id="spotId-main-image" src={oneSpot?.SpotImages?.find(img => img.preview === true).url} alt="image-screen" />
+                    <img id="spotId-main-image" src={oneSpot?.SpotImages?.find(img => img.preview === true)?.url} alt="image-screen" />
 
                     <div className="image-grid">
                         {oneSpot.SpotImages[0] && (
@@ -80,7 +80,7 @@ const SpotId = () => {
             </div>
             <div className="description-container">
                 <div className="left-description">
-                    Hosted by {oneSpot.Owner.firstName} {oneSpot.Owner.lastName}
+                    Hosted by {oneSpot?.Owner?.firstName} {oneSpot?.Owner?.lastName}
                     <p>{oneSpot.description}</p>
                 </div>
                 <div className="right-description">
@@ -88,10 +88,13 @@ const SpotId = () => {
                         <div><b>${oneSpot.price}</b> night</div>
                         {oneSpot.avgStarRating && (
                             <>
-                            <div className="inside-price-star">
-                            <div><img id="radiant-spot" src={Radiant}/></div>
-                            <div>{oneSpot.avgStarRating.toFixed(1)}</div>
-                            </div>
+                                <div className="inside-price-star">
+                                    <div><img id="radiant-spot" src={Radiant} /></div>
+                                    <div>
+                                        <div>{oneSpot.avgStarRating?.toFixed(1)}</div>
+                                    </div>
+                                    <div id="num-reviews">{oneSpot.numReviews} reviews</div>
+                                </div>
                             </>
                         )}
                     </div>
@@ -100,10 +103,10 @@ const SpotId = () => {
             </div>
             <div className="reviews-container">
                 <div className="top-reviews">
-                    <div><img id="radiant-spot" src={Radiant}/></div>
-                    <div>{oneSpot.avgStarRating.toFixed(1)} · {oneSpot.numReviews} reviews</div>
+                    <div><img id="radiant-spot" src={Radiant} /></div>
+                    <div>{oneSpot.avgStarRating?.toFixed(1)} · {oneSpot.numReviews} reviews</div>
                 </div>
-                <SpotIdReview spotId={spotId}/>
+                <SpotIdReview spotId={spotId} />
             </div>
         </>
     )

@@ -5,12 +5,13 @@ import { getSpotThunk } from "../../store/spot"
 import OpenModalButton from '../OpenModalButton'
 import CreateReviewModal from "./CreateReviewModal"
 import './SpotIdReview.css'
+import DeleteReviewModal from "./DeleteReviewModal"
 
 const SpotIdReview = ({spotId}) => {
     console.log(spotId)
     const review = useSelector((state) => state.reviews)
     const reviewArr = Object.values(review.spot)
-    // console.log('this is a review', reviewArr)
+    console.log("this is the review", reviewArr)
     const user = useSelector((state) => state.session.user)
     const dispatch = useDispatch()
     const [month, setMonth] = useState('')
@@ -59,6 +60,7 @@ const SpotIdReview = ({spotId}) => {
 
     useEffect(() => {
         dispatch(getReviewsThunk(spotId))
+        dispatch(getSpotThunk(spotId))
         randomMonth()
     }, [dispatch])
 
@@ -76,6 +78,11 @@ const SpotIdReview = ({spotId}) => {
                 <h3 className="review-name">{review?.User?.firstName}</h3>
                 <h5>{month} 2022</h5>
                 <h4>{review.review}</h4>
+            {review.userId === user.id &&
+                <OpenModalButton
+                    buttonText='Delete Review'
+                    modalComponent={<DeleteReviewModal spotId={spotId} reviewId={review.id}/>}
+                />}
                 </>
             ))}
         </div>

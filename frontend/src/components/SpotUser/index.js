@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import './SpotUser.css';
 import { getAllSpotsThunk } from '../../store/spot';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 import DeleteModal from '../DeleteModal';
 import OpenModalButton from '../OpenModalButton';
 import Radiant from "../../assets/radiant-new-removebg-preview.png"
@@ -13,6 +13,7 @@ const SpotUser = () => {
     const user = useSelector((state) => state.session.user)
     const spots = useSelector((state) => state.spots.allSpots)
     const allSpots = Object.values(spots)
+    const history = useHistory()
     console.log("these are all spots", allSpots)
 
     const dispatch = useDispatch()
@@ -21,13 +22,15 @@ const SpotUser = () => {
         dispatch(getAllSpotsThunk())
     }, [dispatch])
 
-    // if (!allSpots) return null
-
     const spotsUser = allSpots.filter(spot => {
         return spot.ownerId === user.id
     })
 
-    // console.log("we own these spots", spotsUser)
+    // if(!allSpots) return null
+    if(!user) {
+        history.push("/")
+        return null
+    }
 
     return (
         <>
