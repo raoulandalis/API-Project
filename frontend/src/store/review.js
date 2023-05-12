@@ -1,4 +1,5 @@
 import { csrfFetch } from "./csrf"
+import { getSpotThunk } from "./spot"
 
 // TYPES
 const GET_REVIEW = "review/getReview"
@@ -48,17 +49,19 @@ export const createReviewThunk = (review, spotId) => async (dispatch) => {
     if (response.ok) {
         const review = await response.json()
         dispatch(createReview(review))
+        dispatch(getReviewsThunk(spotId))
         return review
     }
 }
 
-export const deleteReviewThunk = (reviewId) => async (dispatch) => {
+export const deleteReviewThunk = (reviewId, spotId) => async (dispatch) => {
     const response = await csrfFetch(`/api/reviews/${reviewId}`, {
         method: 'DELETE'
     })
 
     if (response.ok) {
         dispatch(deleteReview(reviewId))
+        dispatch(getSpotThunk(spotId))
     }
 }
 

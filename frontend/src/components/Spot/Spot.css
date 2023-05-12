@@ -11,6 +11,7 @@
     padding-right: 100px;
     margin-bottom: 100px;
     gap: 20px;
+    /* z-index: 0; */
 }
 
 .ind-spot {

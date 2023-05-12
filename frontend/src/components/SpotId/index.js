@@ -3,6 +3,7 @@ import { getSpotThunk } from "../../store/spot"
 import { useParams } from "react-router-dom"
 import { useEffect, useState } from "react"
 import { getAllSpotsThunk } from "../../store/spot"
+import { getReviewsThunk } from "../../store/review"
 import SpotIdReview from "./SpotIdReview"
 import Radiant from "../../assets/radiant-new-removebg-preview.png"
 import "./SpotId.css"
@@ -13,6 +14,8 @@ const SpotId = () => {
     const dispatch = useDispatch()
     const { spotId } = useParams()
     const oneSpot = useSelector((state) => state.spots.singleSpot)
+    const reviewObj = useSelector((state) => state.reviews.spot)
+    const newReview = Object.values(reviewObj)
     // console.log("hello", oneSpot)
     // console.log("LOOK AT ONE SPOT", oneSpot)
     // console.log("LOOK", oneSpot.SpotImages[4].url)
@@ -23,15 +26,22 @@ const SpotId = () => {
         dispatch(getSpotThunk(spotId))
         dispatch(getAllSpotsThunk()).then(() => setIsLoaded(true))
 
-        const interval = setInterval(() => {
+        // const interval = setInterval(() => {
 
-        }, 3000)
+        // }, 3000)
 
-        return () => {
-            clearInterval(interval)
-        }
+        // return () => {
+        //     clearInterval(interval)
+        // }
 
-    }, [dispatch])
+    }, [dispatch, spotId])
+
+    useEffect(() => {
+        dispatch(getReviewsThunk(spotId))
+    }, [dispatch, spotId])
+
+    if(!newReview || !oneSpot) return null
+
 
     const handleReserve = () => {
         alert("Feature Coming Soon")

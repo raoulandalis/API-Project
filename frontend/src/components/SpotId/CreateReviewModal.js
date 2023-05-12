@@ -39,9 +39,13 @@ const CreateReviewModal = ({ spotId }) => {
                 stars
             }
 
-            const postedReview = await dispatch(createReviewThunk(payload, spotId))
+            await dispatch(createReviewThunk(payload, spotId))
 
-            history.push(`/spots/${spotId}`)
+
+            await dispatch(getSpotThunk(spotId))
+
+
+            // history.push(`/spots/${spotId}`)
             closeModal()
         }
     }

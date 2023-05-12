@@ -13,8 +13,8 @@ const DeleteReviewModal = ({ spotId, reviewId }) => {
     // console.log('this is spot and review', spotId, reviewId)
 
     const deleteYes = () => {
-        dispatch(deleteReviewThunk(reviewId))
-        dispatch(getSpotThunk(spotId))
+        dispatch(deleteReviewThunk(reviewId, spotId))
+        // dispatch(getSpotThunk(spotId))
         history.push(`/spots/${spotId}`)
         closeModal()
     }

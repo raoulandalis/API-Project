@@ -30,13 +30,21 @@ function LoginFormModal() {
     return dispatch(sessionActions.login({ credential: 'hothandzz', password: 'password'})).then(closeModal)
   }
 
+  // const validCredentials = credential.length >= 4 && password.length >= 6 ? "modal-buttons-valid" : "modal-buttons"
+
+  const loginStyle = credential.length >= 4 && password.length >= 6 ? {backgroundColor: "red", color: "white"} : {backgroundColor: "white"}
+
   return (
     <>
       <h1>Log In</h1>
       <form onSubmit={handleSubmit}>
+      {errors.credential && (
+          <p id="wrong-password">{errors.credential}</p>
+        )}
         <label>
-          Username or Email
           <input
+            className="modal-bars"
+            placeholder="     Username or Email"
             type="text"
             value={credential}
             onChange={(e) => setCredential(e.target.value)}
@@ -44,19 +52,20 @@ function LoginFormModal() {
           />
         </label>
         <label>
-          Password
           <input
+            className="modal-bars"
+            placeholder="             Password"
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
         </label>
-        {errors.credential && (
+        {/* {errors.credential && (
           <p>{errors.credential}</p>
-        )}
-        <button type="submit">Log In</button>
-        <button onClick={demoUser}>Demo User</button>
+        )} */}
+        <button className="modal-buttons" type="submit" style={loginStyle}>Log In</button>
+        <button className="modal-buttons" onClick={demoUser}>Demo User</button>
       </form>
     </>
   );

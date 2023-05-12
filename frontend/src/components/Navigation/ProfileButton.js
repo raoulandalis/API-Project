@@ -54,15 +54,15 @@ function ProfileButton({ user }) {
         </div>
       </div>
 
-      <button onClick={openMenu} id="profile-button">
-        <i className="fa-thin fa-bars" />
-        <i className="fas fa-user-circle" />
+      <button onClick={openMenu} id="profile-button" style={{cursor: "pointer"}}>
+        <i class="fa-solid fa-bars" style={{ fontSize: "20px"  }}></i>
+        <i className="fas fa-user-circle" style={{ fontSize: "20px" }} />
       </button>
       <ul className={ulClassName} ref={ulRef}>
         {user ? (
           <>
             <div className="profile-drop">
-              <div id="hello">Hello, {user.username}</div>
+              <div id="hello">Hello, {user.firstName}</div>
               <div id="hello-email">{user.email}</div>
               <NavLink to="/spots/current" style={{ textDecoration: 'none' }}>Manage Spots</NavLink>
               <button id="logout-button" onClick={logout}>Log Out</button>
@@ -71,14 +71,14 @@ function ProfileButton({ user }) {
         ) : (
           <>
             <OpenModalMenuItem
-              itemText="Log In"
-              onItemClick={closeMenu}
-              modalComponent={<LoginFormModal />}
-            />
-            <OpenModalMenuItem
               itemText="Sign Up"
               onItemClick={closeMenu}
               modalComponent={<SignupFormModal />}
+            />
+            <OpenModalMenuItem
+              itemText="Log In"
+              onItemClick={closeMenu}
+              modalComponent={<LoginFormModal />}
             />
           </>
         )}
