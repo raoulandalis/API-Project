@@ -3,6 +3,7 @@ import { useState, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useHistory, useParams } from "react-router-dom"
 import { updateSpotThunk } from "../../store/spot"
+import { getSpotThunk } from "../../store/spot"
 import "../SpotForm/SpotForm.css"
 
 
@@ -28,6 +29,19 @@ const SpotUpdateForm = () => {
     // const [img5, setImg5] = useState('')
     const [validationErrors, setValidationErrors] = useState({})
     const [submitted, setSubmitted] = useState(false)
+
+    useEffect(() => {
+        dispatch(getSpotThunk(spotId))
+        .then(res => {
+            setCountry(res.country)
+            setAddress(res.address)
+            setCity(res.city)
+            setState(res.state)
+            setDescription(res.description)
+            setName(res.name)
+            setPrice(res.price)
+        })
+    })
 
     if (!currentUser) {
         history.push("/")
