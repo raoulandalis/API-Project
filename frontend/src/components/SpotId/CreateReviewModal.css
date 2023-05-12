@@ -9,3 +9,7 @@
 .stars-review .empty {
     color: white
 }
+
+#hidden-review {
+    display: hidden;
+}
