@@ -11,6 +11,7 @@
     padding-right: 100px;
     margin-bottom: 100px;
     gap: 20px;
+    /* z-index: 0; */
 }
 
 .ind-spot {
@@ -33,4 +34,9 @@
 .under-img {
     display: flex;
     justify-content: space-between;
+}
+
+#radiant-front {
+    width: 30px;
+    height: 25px;
 }

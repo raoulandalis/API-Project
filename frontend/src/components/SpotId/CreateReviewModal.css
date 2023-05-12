@@ -1,0 +1,11 @@
+.stars-review {
+    display: flex;
+}
+
+.stars-review .filled {
+   color: black;
+}
+
+.stars-review .empty {
+    color: white
+}

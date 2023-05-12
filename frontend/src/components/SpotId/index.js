@@ -3,7 +3,9 @@ import { getSpotThunk } from "../../store/spot"
 import { useParams } from "react-router-dom"
 import { useEffect, useState } from "react"
 import { getAllSpotsThunk } from "../../store/spot"
+import { getReviewsThunk } from "../../store/review"
 import SpotIdReview from "./SpotIdReview"
+import Radiant from "../../assets/radiant-new-removebg-preview.png"
 import "./SpotId.css"
 import "./SpotIdReview.css"
 
@@ -12,8 +14,10 @@ const SpotId = () => {
     const dispatch = useDispatch()
     const { spotId } = useParams()
     const oneSpot = useSelector((state) => state.spots.singleSpot)
+    const reviewObj = useSelector((state) => state.reviews.spot)
+    const newReview = Object.values(reviewObj)
     // console.log("hello", oneSpot)
-    console.log("LOOK AT ONE SPOT", oneSpot)
+    // console.log("LOOK AT ONE SPOT", oneSpot)
     // console.log("LOOK", oneSpot.SpotImages[4].url)
 
     const [isLoaded, setIsLoaded] = useState(false)
@@ -22,31 +26,40 @@ const SpotId = () => {
         dispatch(getSpotThunk(spotId))
         dispatch(getAllSpotsThunk()).then(() => setIsLoaded(true))
 
-        const interval = setInterval(() => {
+        // const interval = setInterval(() => {
 
-        }, 3000)
+        // }, 3000)
 
-        return () => {
-            clearInterval(interval)
-        }
+        // return () => {
+        //     clearInterval(interval)
+        // }
 
-    }, [dispatch])
+    }, [dispatch, spotId])
+
+    useEffect(() => {
+        dispatch(getReviewsThunk(spotId))
+    }, [dispatch, spotId])
+
+    if(!newReview || !oneSpot) return null
+
 
     const handleReserve = () => {
         alert("Feature Coming Soon")
     }
 
-    let previewImg;
+    // let previewImg;
 
-    if(oneSpot.SpotImages.length) {
-    previewImg = oneSpot.SpotImages.find(img => img.preview === true)
-    }
+    // if(oneSpot.SpotImages.length) {
+    // previewImg = oneSpot.SpotImages.find(img => img.preview === true)
+    // }
+
+    // const previewImg = oneSpot?.SpotImages?.find(img => img.preview === true)
 
     // console.log('-------->', previewImg.url)
 
     // console.log('------->', oneSpot.SpotImages[0])
 
-    if (!oneSpot) return null
+    if (!oneSpot.SpotImages) return null
 
     return isLoaded && (
         <>
@@ -57,7 +70,7 @@ const SpotId = () => {
                 </div>
                 <div className="image-container">
 
-                    <img id="spotId-main-image" src={previewImg.url} alt="image-screen" />
+                    <img id="spotId-main-image" src={oneSpot?.SpotImages?.find(img => img.preview === true)?.url} alt="image-screen" />
 
                     <div className="image-grid">
                         {oneSpot.SpotImages[0] && (
@@ -77,14 +90,22 @@ const SpotId = () => {
             </div>
             <div className="description-container">
                 <div className="left-description">
-                    Hosted by {oneSpot.Owner.firstName} {oneSpot.Owner.lastName}
+                    Hosted by {oneSpot?.Owner?.firstName} {oneSpot?.Owner?.lastName}
                     <p>{oneSpot.description}</p>
                 </div>
                 <div className="right-description">
                     <div className="price-star">
                         <div><b>${oneSpot.price}</b> night</div>
                         {oneSpot.avgStarRating && (
-                            <div>🌟 {oneSpot.avgStarRating}</div>
+                            <>
+                                <div className="inside-price-star">
+                                    <div><img id="radiant-spot" src={Radiant} /></div>
+                                    <div>
+                                        <div>{oneSpot.avgStarRating?.toFixed(1)}</div>
+                                    </div>
+                                    <div id="num-reviews">{oneSpot.numReviews} reviews</div>
+                                </div>
+                            </>
                         )}
                     </div>
                     <button onClick={handleReserve} id="reserve-button">Reserve</button>
@@ -92,9 +113,10 @@ const SpotId = () => {
             </div>
             <div className="reviews-container">
                 <div className="top-reviews">
-                    <div>🌟 {oneSpot.avgStarRating} · {oneSpot.numReviews} reviews</div>
+                    <div><img id="radiant-spot" src={Radiant} /></div>
+                    <div>{oneSpot.avgStarRating?.toFixed(1)} · {oneSpot.numReviews} reviews</div>
                 </div>
-                <SpotIdReview spotId={spotId}/>
+                <SpotIdReview spotId={spotId} />
             </div>
         </>
     )
