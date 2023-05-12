@@ -73,15 +73,15 @@ const SpotIdReview = ({spotId}) => {
     let userReview;
 
     if (user) {
-        userReview = reviewArr.find((review) => review.User.id === user.id);
+        userReview = reviewArr.find((review) => review.User?.id === user?.id);
       }
 
-    if(!user) {
+    if(!user || !user.id) {
 
     return (
         <>
         <div className="all-reviews-grid">
-            {reviewArr.map((review) => (
+            {reviewArr.toReversed().map((review) => (
                 <>
                 <h3 className="review-name">{review?.User?.firstName}</h3>
                 <h5>{month} 2022</h5>
@@ -104,7 +104,7 @@ const SpotIdReview = ({spotId}) => {
             </div>
         }
         <div className="all-reviews-grid">
-            {reviewArr.map((review) => (
+            {reviewArr.toReversed().map((review) => (
                 <>
                 <h3 className="review-name">{review?.User?.firstName}</h3>
                 <h5>{month} 2022</h5>

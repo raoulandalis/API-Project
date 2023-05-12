@@ -24,9 +24,12 @@ const Spots = () => {
                             <img id="spot-img" src={`${spot.previewImage}`} alt="img" />
                             <div className="under-img">
                                 <div className="city">{spot.city}, {spot.state}</div>
-                                <div className="review"><img id="radiant-front" src={Radiant}/><b>{spot.avgRating?.toFixed(1)}</b></div>
+                                {spot.avgRating ?
+                                    <div className="review"><img id="radiant-front" src={Radiant} /><b>{spot.avgRating.toFixed(1)}</b></div>
+                                    :
+                                    <div className="review"><img id="radiant-front" src={Radiant} /><b>New</b></div>
+                                }
                             </div>
-                            {/* <div className="country">{spot.country}</div> */}
                             <div className="price"><b>${spot.price}</b> night</div>
                         </div>
                     </NavLink>
