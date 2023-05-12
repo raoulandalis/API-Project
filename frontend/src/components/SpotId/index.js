@@ -40,7 +40,7 @@ const SpotId = () => {
         dispatch(getReviewsThunk(spotId))
     }, [dispatch, spotId])
 
-    if(!newReview || !oneSpot) return null
+    if (!newReview || !oneSpot) return null
 
 
     const handleReserve = () => {
@@ -96,17 +96,21 @@ const SpotId = () => {
                 <div className="right-description">
                     <div className="price-star">
                         <div><b>${oneSpot.price}</b> night</div>
-                        {oneSpot.avgStarRating && (
-                            <>
-                                <div className="inside-price-star">
-                                    <div><img id="radiant-spot" src={Radiant} /></div>
-                                    <div>
-                                        <div>{oneSpot.avgStarRating?.toFixed(1)}</div>
-                                    </div>
-                                    <div id="num-reviews">{oneSpot.numReviews} reviews</div>
-                                </div>
-                            </>
-                        )}
+                        <div className="inside-price-star">
+                            <div><img id="radiant-spot" src={Radiant} /></div>
+
+                            <div>
+                                {+oneSpot.avgStarRating > 0 ? `${oneSpot.avgStarRating.toFixed(1)} ` : "New "}
+                                {oneSpot.numReviews ? <span>·</span> : ""}
+                                {oneSpot.numReviews ? (
+                                    <span>
+                                        {oneSpot.numReviews} {oneSpot.numReviews === 1 ? "review" : "reviews"}
+                                    </span>
+                                ) : (
+                                    ""
+                                )}
+                            </div>
+                        </div>
                     </div>
                     <button onClick={handleReserve} id="reserve-button">Reserve</button>
                 </div>
@@ -114,7 +118,18 @@ const SpotId = () => {
             <div className="reviews-container">
                 <div className="top-reviews">
                     <div><img id="radiant-spot" src={Radiant} /></div>
-                    <div>{oneSpot.avgStarRating?.toFixed(1)} · {oneSpot.numReviews} reviews</div>
+                    {/* <div>{oneSpot.avgStarRating?.toFixed(1)} · {oneSpot.numReviews} reviews</div> */}
+                    {oneSpot.numReviews ? (
+                        <>
+                            <div>
+                                {oneSpot.avgStarRating?.toFixed(1)} ·{" "}
+                                {oneSpot.numReviews}{" "}
+                                {oneSpot.numReviews === 1 ? "review" : "reviews"}
+                            </div>
+                        </>
+                    ) : (
+                        <div>New</div>
+                    )}
                 </div>
                 <SpotIdReview spotId={spotId} />
             </div>

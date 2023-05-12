@@ -48,7 +48,7 @@ const SpotUser = () => {
                         <img id="spot-card-img" src={`${spot.previewImage}`} alt="img" />
                         <div className="manage-review">
                             <img id="radiant-spot" src={Radiant}/>
-                            <b>{spot.avgRating.toFixed(1)}</b>
+                            <b>{spot.avgRating?.toFixed(1)}</b>
                         </div>
                         <div className="manage-city">{spot.city}, {spot.state}</div>
                         <div className="manage-country">{spot.country}</div>
