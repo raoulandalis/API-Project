@@ -32,7 +32,10 @@ function LoginFormModal() {
 
   const demoUser = e => {
     e.preventDefault()
-    return dispatch(sessionActions.login({ credential: 'hothandzz', password: 'password'})).then(closeModal)
+    return dispatch(sessionActions.login({ credential: 'hothandzz', password: 'password'})).then(() => {
+      closeModal()
+      history.push("/")
+    })
   }
 
   // const validCredentials = credential.length >= 4 && password.length >= 6 ? "modal-buttons-valid" : "modal-buttons"
