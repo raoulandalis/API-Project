@@ -16,23 +16,15 @@ const SpotId = () => {
     const oneSpot = useSelector((state) => state.spots.singleSpot)
     const reviewObj = useSelector((state) => state.reviews.spot)
     const newReview = Object.values(reviewObj)
-    // console.log("hello", oneSpot)
-    // console.log("LOOK AT ONE SPOT", oneSpot)
-    // console.log("LOOK", oneSpot.SpotImages[4].url)
+
+    console.log('~~~~~~~~', oneSpot.SpotImages)
+
 
     const [isLoaded, setIsLoaded] = useState(false)
 
     useEffect(() => {
         dispatch(getSpotThunk(spotId))
         dispatch(getAllSpotsThunk()).then(() => setIsLoaded(true))
-
-        // const interval = setInterval(() => {
-
-        // }, 3000)
-
-        // return () => {
-        //     clearInterval(interval)
-        // }
 
     }, [dispatch, spotId])
 
@@ -47,24 +39,16 @@ const SpotId = () => {
         alert("Feature Coming Soon")
     }
 
-    // let previewImg;
+    const falseImages = oneSpot.SpotImages?.filter(img => img.preview === false)
 
-    // if(oneSpot.SpotImages.length) {
-    // previewImg = oneSpot.SpotImages.find(img => img.preview === true)
-    // }
-
-    // const previewImg = oneSpot?.SpotImages?.find(img => img.preview === true)
-
-    // console.log('-------->', previewImg.url)
-
-    // console.log('------->', oneSpot.SpotImages[0])
-
-    if (!oneSpot.SpotImages) return null
+    if (!oneSpot.SpotImages || !falseImages) return null
 
     return isLoaded && (
         <>
             <div className="spotId-container">
-                <div className="title-info">
+                {oneSpot?.id &&
+                    <>
+                    <div className="title-info">
                     <h2 className="spotId-name">{oneSpot.name}</h2>
                     <p className="spotId-location">{oneSpot.city}, {oneSpot.state}, {oneSpot.country}</p>
                 </div>
@@ -73,20 +57,12 @@ const SpotId = () => {
                     <img id="spotId-main-image" src={oneSpot?.SpotImages?.find(img => img.preview === true)?.url} alt="image-screen" />
 
                     <div className="image-grid">
-                        {oneSpot.SpotImages[0] && (
-                            <img className="more-image" id="top-left" src={oneSpot.SpotImages[0].url} />
-                        )}
-                        {oneSpot.SpotImages[1] && (
-                            <img className="more-image" id="top-right" src={oneSpot.SpotImages[1].url} />
-                        )}
-                        {oneSpot.SpotImages[2] && (
-                            <img className="more-image" id="bottom-left" src={oneSpot.SpotImages[2].url} />
-                        )}
-                        {oneSpot.SpotImages[3] && (
-                            <img className="more-image" id="bottom-right" src={oneSpot.SpotImages[3].url} />
-                        )}
+                        {falseImages?.map((img) => img ? <img src={img.url} className="grid-images"alt="img"></img> : null)}
                     </div>
                 </div>
+                </>
+                }
+
             </div>
             <div className="description-container">
                 <div className="left-description">
