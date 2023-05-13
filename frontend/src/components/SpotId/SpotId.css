@@ -37,6 +37,13 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-gap: 2px;
+    width: 300px;
+}
+
+.grid-images {
+    height: 150px;
+    width: 100%;
+    object-fit: cover;;
 }
 
 .description-container {

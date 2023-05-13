@@ -63,6 +63,8 @@ const CreateForm = ({ spot }) => {
 
         setSubmitted(true)
 
+        const images = [image, img2, img3, img4, img5]
+
         if (!Object.values(validationErrors).length) {
             const payload = {
                 address,
@@ -76,25 +78,8 @@ const CreateForm = ({ spot }) => {
                 lng
             }
 
-            const newSpot = await dispatch(createSpotThunk(payload))
-
-
-
-            if (newSpot) {
-                // const imgObj = ({
-                //     url: image,
-                //     preview: true
-                // })
-                const SpotImages = [
-                    {preview:true, url:image},
-                    {preview:true, url:img2},
-                    {preview:true, url:img3},
-                    {preview:true, url:img4},
-                    {preview:true, url:img5},
-                   ]
-                await dispatch(createSpotImageThunk(newSpot.id, SpotImages))
-                history.push(`/spots/${newSpot.id}`)
-            }
+            const newSpot = await dispatch(createSpotThunk(payload, images))
+            history.push(`/spots/${newSpot.id}`)
 
 
         }
