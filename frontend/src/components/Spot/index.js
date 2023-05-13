@@ -10,6 +10,8 @@ const Spots = () => {
     const spots = useSelector((state) => state.spots)
     const allSpots = Object.values(spots.allSpots)
 
+    console.log(spots)
+
     useEffect(() => {
         dispatch(getAllSpotsThunk())
     }, [dispatch])

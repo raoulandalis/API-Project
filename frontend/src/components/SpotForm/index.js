@@ -81,11 +81,18 @@ const CreateForm = ({ spot }) => {
 
 
             if (newSpot) {
-                const imgObj = ({
-                    url: image,
-                    preview: true
-                })
-                await dispatch(createSpotImageThunk(newSpot.id, imgObj))
+                // const imgObj = ({
+                //     url: image,
+                //     preview: true
+                // })
+                const SpotImages = [
+                    {preview:true, url:image},
+                    {preview:true, url:img2},
+                    {preview:true, url:img3},
+                    {preview:true, url:img4},
+                    {preview:true, url:img5},
+                   ]
+                await dispatch(createSpotImageThunk(newSpot.id, SpotImages))
                 history.push(`/spots/${newSpot.id}`)
             }
 

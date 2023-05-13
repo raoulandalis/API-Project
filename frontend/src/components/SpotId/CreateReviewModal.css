@@ -13,3 +13,12 @@
 #hidden-review {
     display: hidden;
 }
+
+#submit-review-button {
+    background-color: red;
+    color: white
+}
+
+#submit-review-not-valid {
+    background-color: white;
+}

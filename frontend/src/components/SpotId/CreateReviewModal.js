@@ -50,6 +50,8 @@ const CreateReviewModal = ({ spotId }) => {
         }
     }
 
+    const reviewButtonId = review.length < 10 && !stars ? "submit-review-not-valid" : "submit-review-button"
+
     return (
         <>
             <div className="create-review-modal">
@@ -104,7 +106,7 @@ const CreateReviewModal = ({ spotId }) => {
                         </div>
                         Stars
                     </div>
-                    <button type="submit" id="submit-review-button" disabled={review.length < 10 || !stars}>Submit Your Review</button>
+                    <button type="submit" id={reviewButtonId} disabled={review.length < 10 || !stars}>Submit Your Review</button>
                 </form>
             </div>
         </>

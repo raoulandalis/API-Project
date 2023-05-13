@@ -104,15 +104,17 @@ export const updateSpotThunk = (spot, spotId) => async (dispatch) => {
 export const createSpotImageThunk = (newSpot, imgArr) => async (dispatch) => {
 
     console.log('this is newSpot', newSpot, imgArr)
-    const response = await csrfFetch(`/api/spots/${newSpot}/images`, {
-        method: 'POST',
-        body: JSON.stringify(imgArr)
-    })
+    for (let img of imgArr) {
+        const response = await csrfFetch(`/api/spots/${newSpot}/images`, {
+            method: 'POST',
+            body: JSON.stringify({url: img.url, preview: img.preview})
+        })
 
-    if (response.ok) {
-        const img = await response.json()
-        dispatch(createSpotImage(img))
-        return img
+        // if (response.ok) {
+            // const img = await response.json()
+            // dispatch(createSpotImage(img))
+            // return img
+        // }
     }
 }
 
