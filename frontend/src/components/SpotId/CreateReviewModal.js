@@ -21,7 +21,6 @@ const CreateReviewModal = ({ spotId }) => {
     const [activeRating, setActiveRating] = useState(1)
     const [submitted, setSubmitted] = useState(false)
 
-
     useEffect(() => {
         const errors = {};
         if (review.length < 10) errors.review = "Please enter more than 10 characters"
@@ -71,7 +70,9 @@ const CreateReviewModal = ({ spotId }) => {
                         <div
                             className={activeRating >= 1 ? "fa-sharp fa-solid fa-star" : "fa-sharp fa-regular fa-star"}
                             onMouseEnter={() => setActiveRating(1)}
-                            onClick={() => setStars(1)}
+                            onClick={() => {
+                                setStars(1)
+                            }}
                         >
                             {/* <i class="fa-sharp fa-regular fa-star"></i> */}
 
@@ -79,28 +80,40 @@ const CreateReviewModal = ({ spotId }) => {
                         <div
                             className={activeRating >= 2 ? "fa-sharp fa-solid fa-star" : "fa-sharp fa-regular fa-star"}
                             onMouseEnter={() => setActiveRating(2)}
-                            onClick={() => setStars(2)}
+                            onClick={() => {
+                                setStars(2)
+                                setActiveRating(2)
+                            }}
                         >
                             {/* <i class="fa-regular fa-star"></i> */}
                         </div>
                         <div
                             className={activeRating >= 3 ? "fa-sharp fa-solid fa-star" : "fa-sharp fa-regular fa-star"}
                             onMouseEnter={() => setActiveRating(3)}
-                            onClick={() => setStars(3)}
+                            onClick={() => {
+                                setStars(3)
+                                setActiveRating(3)
+                            }}
                         >
                             {/* <i class="fa-regular fa-star"></i> */}
                         </div>
                         <div
                             className={activeRating >= 4 ? "fa-sharp fa-solid fa-star" : "fa-sharp fa-regular fa-star"}
                             onMouseEnter={() => setActiveRating(4)}
-                            onClick={() => setStars(4)}
+                            onClick={() => {
+                                setStars(4)
+                                setActiveRating(4)
+                            }}
                         >
                             {/* <i class="fa-regular fa-star"></i> */}
                         </div>
                         <div
                             className={activeRating >= 5 ? "fa-sharp fa-solid fa-star" : "fa-sharp fa-regular fa-star"}
                             onMouseEnter={() => setActiveRating(5)}
-                            onClick={() => setStars(5)}
+                            onClick={() => {
+                                setStars(5)
+                                setActiveRating(5)
+                            }}
                         >
                             {/* <i class="fa-regular fa-star"></i> */}
                         </div>
