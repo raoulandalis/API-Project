@@ -95,12 +95,13 @@ const SpotIdReview = ({spotId}) => {
 
     return (
         <>
-        {!userReview && user.id !== spot.Owner.id &&
+        {!userReview && user?.id !== spot.Owner.id &&
             <div>
             <OpenModalButton
                 buttonText='Post Your Review'
                 modalComponent={<CreateReviewModal spotId={spotId}/>}
                 />
+                <p id="be-first">Be the first to post a review!</p>
             </div>
         }
         <div className="all-reviews-grid">

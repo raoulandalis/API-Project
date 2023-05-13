@@ -41,7 +41,7 @@ const SpotUpdateForm = () => {
             setName(res.name)
             setPrice(res.price)
         })
-    })
+    }, [dispatch])
 
     if (!currentUser) {
         history.push("/")
