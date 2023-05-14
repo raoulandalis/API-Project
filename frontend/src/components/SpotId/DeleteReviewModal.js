@@ -4,6 +4,7 @@ import { useModal } from "../../context/Modal"
 import { deleteReviewThunk } from "../../store/review"
 import { getReviewsThunk } from "../../store/review"
 import { getSpotThunk } from "../../store/spot"
+import "./CreateReviewModal.css"
 
 const DeleteReviewModal = ({ spotId, reviewId }) => {
 

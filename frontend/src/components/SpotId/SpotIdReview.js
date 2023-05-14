@@ -52,7 +52,7 @@ const SpotIdReview = ({spotId}) => {
     return (
         <>
         {!userReview && user?.id !== spot.Owner?.id &&
-            <div>
+            <div id="post-review-button">
             <OpenModalButton
                 buttonText='Post Your Review'
                 modalComponent={<CreateReviewModal spotId={spotId}/>}
@@ -67,10 +67,11 @@ const SpotIdReview = ({spotId}) => {
                 <h5>{new Date(review.createdAt).toLocaleString('default', { month: 'long' })} {new Date(review.createdAt).getFullYear()}</h5>
                 <h4>{review.review}</h4>
                 {user.id === review.userId &&
+                <div id="delete-review-home">
                 <OpenModalButton
                 buttonText='Delete Review'
                 modalComponent={<DeleteReviewModal spotId={spotId} reviewId={review.id}/>}
-            />}
+            /></div>}
                 </>
             ))}
         </div>
