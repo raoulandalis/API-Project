@@ -247,7 +247,7 @@ const CreateForm = ({ spot }) => {
                             />
                         </label>
                         <div className="cushion">
-                        <button type="submit" id="spot-create">Create a Spot</button>
+                        <button type="submit" id="spot-create">Create Spot</button>
                         </div>
                     </form>
                 </div>

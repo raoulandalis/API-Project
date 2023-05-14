@@ -1,5 +1,10 @@
 .signup-errors {
     color: red;
-    width: fit-content;
-    margin-left: 175px;
+    display: flex;
+    justify-content: center;
 }
+
+#sign-up-btn {
+    cursor: pointer;
+}
+

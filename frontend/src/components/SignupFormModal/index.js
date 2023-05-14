@@ -47,7 +47,7 @@ function SignupFormModal() {
     });
   };
 
-  const loginStyle = !email && !username&& !firstName && !lastName && !password && !confirmPassword ? {backgroundColor: "white", boxShadow: "3px 3px 3px grey"} : {backgroundColor: "red", color: "white", boxShadow: "3px 3px 3px grey"}
+  const loginStyle = !email && !username&& !firstName && !lastName && !password && !confirmPassword || username.length < 4 || password.length < 6 ? {backgroundColor: "white", boxShadow: "3px 3px 3px grey"} : {backgroundColor: "red", color: "white", boxShadow: "3px 3px 3px grey"}
 
   return (
     <>
@@ -115,7 +115,7 @@ function SignupFormModal() {
             required
           />
         </label>
-        <button type="submit" style={loginStyle}>Sign Up</button>
+        <button id="sign-up-btn" type="submit" style={loginStyle} disable={!email && !username&& !firstName && !lastName && !password && !confirmPassword || username.length < 4 || password.length < 6}>Sign Up</button>
       </form>
     </>
   );

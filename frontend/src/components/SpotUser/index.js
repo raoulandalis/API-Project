@@ -35,7 +35,7 @@ const SpotUser = () => {
     return (
         <>
             <div className="manage">
-                <h2>Manage Your Spots</h2>
+                <h2>Manage Spots</h2>
                 <div id="new-spot-manage">
                     <NavLink id ="manage-spot-button" style={{ textDecoration: "none" }} to="/spots/new">
                         Create a New Spot
