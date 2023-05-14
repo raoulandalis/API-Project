@@ -7,6 +7,7 @@
     padding: 0 20%;
     /* margin-left: 500px;
     margin-right: 500px; */
+    margin-right: 50px;
 }
 
 .spot-form {
@@ -77,7 +78,7 @@
 }
 
 #spot-create {
-    width: 100px;
+    width: 119px;
     padding-top: 10px;
     padding-bottom: 10px;
     background-color: red;
