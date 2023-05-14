@@ -44,6 +44,7 @@ const SpotUser = () => {
             </div>
             <div className="manage-spots-grid">
                 {spotsUser.map(spot => (
+                    <NavLink to={`/spots/${spot.id}`}>
                     <div className="spot-card">
                         <img id="spot-card-img" src={`${spot.previewImage}`} alt="img" />
                         <div className="manage-review">
@@ -64,6 +65,7 @@ const SpotUser = () => {
                             />
                         </div>
                     </div>
+                    </NavLink>
                 ))}
             </div>
         </>
