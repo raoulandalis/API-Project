@@ -53,17 +53,20 @@ const CreateForm = ({ spot }) => {
 
         if (!price) errors.price = "Price is required"
 
-        if (!image) errors.image = "Preview image is required"
+        if (!image.trim()) {
+            errors.image = "Preview image is required";
+          } else if (!image.endsWith('.jpg') && !image.endsWith('.jpeg') && !image.endsWith('.png')) {
+            errors.image = "Image URL must end in .png, .jpg, or .jpeg";
+          }
+
 
         setValidationErrors(errors)
-    }, [country, address, city, state, description, name, price, image])
+    }, [country, address, city, state, description, name, price, image, img2, img3, img4, img5])
 
     const onSubmit = async (e) => {
         e.preventDefault()
 
         setSubmitted(true)
-
-        const images = [image, img2, img3, img4, img5]
 
         if (!Object.values(validationErrors).length) {
             const payload = {
@@ -78,11 +81,8 @@ const CreateForm = ({ spot }) => {
                 lng
             }
 
-            // for (let i = 0; i< images.length; i++) {
-            //     if(!images[i]) {
-            //         images[i] = ""
-            //     }
-            // }
+            const images = [image, img2, img3, img4, img5]
+
 
             const newSpot = await dispatch(createSpotThunk(payload, images))
             history.push(`/spots/${newSpot.id}`)
@@ -216,7 +216,7 @@ const CreateForm = ({ spot }) => {
                                 value={image}
                                 onChange={(e) => setImage(e.target.value)}
                             />
-                            {validationErrors.images && submitted && <p className="errors">{validationErrors.images}</p>}
+                            {validationErrors.image && submitted && <p className="errors">{validationErrors.image}</p>}
                             <input
                                 className="form-pic"
                                 placeholder="Image URL"
