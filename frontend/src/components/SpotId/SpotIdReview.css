@@ -31,4 +31,7 @@
 
 #delete-review-home button{
     cursor: pointer;
+    background-color: rgb(107, 104, 104);
+    color: white;
+    box-shadow: 3px 3px 3px black;
 }
