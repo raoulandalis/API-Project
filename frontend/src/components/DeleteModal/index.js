@@ -2,6 +2,7 @@ import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { useModal } from "../../context/Modal";
 import { deleteSpotThunk } from "../../store/spot";
+import "./DeleteModal.css"
 
 const DeleteModal = ({spotId}) => {
     console.log(spotId)

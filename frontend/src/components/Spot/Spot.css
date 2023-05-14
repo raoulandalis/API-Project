@@ -17,6 +17,7 @@
 .ind-spot {
     /* border: 1px solid black; */
     padding-bottom: 10px;
+    position: relative;
 }
 
 .review {
@@ -39,4 +40,40 @@
 #radiant-front {
     width: 30px;
     height: 25px;
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    position: absolute;
+    z-index: 1;
+    width: 120px;
+    background-color: grey;
+    color: white;
+    text-align: center;
+    border-radius: 2px;
+    padding-right: 5px;
+    padding-left: 5px;
+    top: 30%;
+    left: 50%;
+    transform: translateX(-50%)
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+
+.tooltip .tooltiptext::after {
+    content: " ";
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    border-style: solid;
+    border-width: 5px;
+    margin-left: -5px;
+    border-color: transparent transparent grey transparent
 }

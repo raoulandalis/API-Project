@@ -39,9 +39,9 @@ const SpotId = () => {
         alert("Feature Coming Soon")
     }
 
-    const falseImages = oneSpot.SpotImages?.filter(img => img.preview === false)
+    // const falseImages = oneSpot.SpotImages?.filter(img => img.preview === false)
 
-    if (!oneSpot.SpotImages || !falseImages) return null
+    if (!oneSpot.SpotImages) return null
 
     return isLoaded && (
         <>
@@ -57,7 +57,7 @@ const SpotId = () => {
                     <img id="spotId-main-image" src={oneSpot?.SpotImages?.find(img => img.preview === true)?.url} alt="image-screen" />
 
                     <div className="image-grid">
-                        {falseImages?.map((img) => img ? <img src={img.url} className="grid-images"alt="img"></img> : null)}
+                    {oneSpot.SpotImages.filter((img, index) => index > 0).map((img, index) => index < 4 && img ? <img src={img.url} className="grid-images" alt="img" /> : null)}
                     </div>
                 </div>
                 </>

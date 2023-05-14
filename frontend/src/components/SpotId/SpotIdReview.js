@@ -20,54 +20,10 @@ const SpotIdReview = ({spotId}) => {
     // console.log("this is the spot owner", spot.Owner.id)
 
     const dispatch = useDispatch()
-    const [month, setMonth] = useState('')
-
-    const randomMonth = () => {
-        const num = Math.floor(Math.random() * 12)
-
-        let month;
-
-        if (num === 0) {
-            month = "January"
-        } else if (num === 1) {
-            month = "February"
-        }
-        else if (num === 2) {
-            month = "March"
-        }
-        else if (num === 3) {
-            month = "April"
-        }
-        else if (num === 4) {
-            month = "May"
-        }
-        else if (num === 5) {
-            month = "June"
-        }
-        else if (num === 6) {
-            month = "July"
-        }
-        else if (num === 7) {
-            month = "August"
-        }
-        else if (num === 8) {
-            month = "September"
-        }
-        else if (num === 9) {
-            month = "October"
-        }
-        else if (num === 10) {
-            month = "November"
-        } else {
-            month = "December"
-        }
-        setMonth(month)
-    }
 
     useEffect(() => {
         dispatch(getReviewsThunk(spotId))
         dispatch(getSpotThunk(spotId))
-        randomMonth()
     }, [dispatch])
 
     let userReview;
@@ -84,7 +40,7 @@ const SpotIdReview = ({spotId}) => {
             {reviewArr.toReversed().map((review) => (
                 <>
                 <h3 className="review-name">{review?.User?.firstName}</h3>
-                <h5>{month} 2022</h5>
+                <h5>{new Date(review.createdAt).toLocaleString('default', { month: 'long' })} {new Date(review.createdAt).getFullYear()}</h5>
                 <h4>{review.review}</h4>
                 </>
             ))}
@@ -96,7 +52,7 @@ const SpotIdReview = ({spotId}) => {
     return (
         <>
         {!userReview && user?.id !== spot.Owner?.id &&
-            <div>
+            <div id="post-review-button">
             <OpenModalButton
                 buttonText='Post Your Review'
                 modalComponent={<CreateReviewModal spotId={spotId}/>}
@@ -108,13 +64,14 @@ const SpotIdReview = ({spotId}) => {
             {reviewArr.toReversed().map((review) => (
                 <>
                 <h3 className="review-name">{review?.User?.firstName}</h3>
-                <h5>{month} 2022</h5>
+                <h5>{new Date(review.createdAt).toLocaleString('default', { month: 'long' })} {new Date(review.createdAt).getFullYear()}</h5>
                 <h4>{review.review}</h4>
                 {user.id === review.userId &&
+                <div id="delete-review-home">
                 <OpenModalButton
                 buttonText='Delete Review'
                 modalComponent={<DeleteReviewModal spotId={spotId} reviewId={review.id}/>}
-            />}
+            /></div>}
                 </>
             ))}
         </div>

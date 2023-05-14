@@ -54,22 +54,25 @@ function ProfileButton({ user }) {
         </div>
       </div>
 
-      <button onClick={openMenu} id="profile-button" style={{cursor: "pointer"}}>
-        <i class="fa-solid fa-bars" style={{ fontSize: "20px"  }}></i>
+      <button onClick={openMenu} id="profile-button" style={{ cursor: "pointer" }}>
+        <i class="fa-solid fa-bars" style={{ fontSize: "20px" }}></i>
         <i className="fas fa-user-circle" style={{ fontSize: "20px" }} />
       </button>
       <ul className={ulClassName} ref={ulRef}>
         {user ? (
           <>
-            <div className="profile-drop">
-              <div id="hello">Hello, {user.firstName}</div>
-              <div id="hello-email">{user.email}</div>
-              <NavLink to="/spots/current" style={{ textDecoration: 'none' }}>Manage Spots</NavLink>
-              <button id="logout-button" onClick={logout}>Log Out</button>
+            <div className="profile-container">
+              <div className="profile-drop">
+                <div id="hello">Hello, {user.firstName}</div>
+                <div id="hello-email">{user.email}</div>
+                <NavLink id="hello-manage" to="/spots/current" style={{ textDecoration: 'none' }}>Manage Spots</NavLink>
+                <button id="logout-button" onClick={logout}>Log Out</button>
+              </div>
             </div>
           </>
         ) : (
           <>
+          <div className="su-li">
             <OpenModalMenuItem
               itemText="Sign Up"
               onItemClick={closeMenu}
@@ -80,6 +83,7 @@ function ProfileButton({ user }) {
               onItemClick={closeMenu}
               modalComponent={<LoginFormModal />}
             />
+            </div>
           </>
         )}
       </ul>

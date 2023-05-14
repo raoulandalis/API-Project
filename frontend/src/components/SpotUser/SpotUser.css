@@ -13,6 +13,8 @@
     border: 1px solid black;
     color: white;
     box-shadow: 3px 3px 3px rgba(13, 13, 14, 0.2);
+    padding-left:2px;
+    padding-right:2px;
 }
 
 .manage-spots-grid {
@@ -53,6 +55,7 @@
     background-color: rgb(107, 104, 104);
     color: white;
     box-shadow: 3px 3px 3px rgba(13, 13, 14, 0.2);
+    cursor: pointer;
 }
 
 #update-button {
@@ -60,4 +63,7 @@
     background-color: rgb(107, 104, 104);
     color: white;
     box-shadow: 3px 3px 3px rgba(13, 13, 14, 0.2);
+    font-size: 13.5px;
+    padding-left:2px;
+    padding-right:2px;
 }
