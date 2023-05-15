@@ -39,8 +39,8 @@ const SpotId = () => {
         alert("Feature Coming Soon")
     }
 
-    // const falseImages = oneSpot.SpotImages?.filter(img => img.preview === false)
-
+    // const falseImages = oneSpot.SpotImages?.filter(img => img.preview === false
+    // add change to 60 logic
     if (!oneSpot.SpotImages) return null
 
     return isLoaded && (
