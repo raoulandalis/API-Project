@@ -163,7 +163,7 @@ const SpotUpdateForm = () => {
                     </div>
                     <div className="form-words">
                         <h3>Describe your place to guests</h3>
-                        <p>Mention the best features of your space, any special amentities like
+                        <p>Mention the best features of your space, any special amenities like
                             fast wifi or parking, and what you love about the neighborhood.
                         </p>
                     </div>
@@ -213,7 +213,7 @@ const SpotUpdateForm = () => {
                     </label>
                     {/* {validationErrors.price && submitted && <p className="errors">{validationErrors.price}</p>} */}
                     <div className="cushion">
-                    <button type="submit" id="spot-create">Create a Spot</button>
+                    <button type="submit" id="spot-create">Update your Spot</button>
                     </div>
                 </form>
             </div>

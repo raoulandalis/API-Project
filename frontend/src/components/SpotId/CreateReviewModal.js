@@ -61,7 +61,7 @@ const CreateReviewModal = ({ spotId }) => {
                             rows="5"
                             cols="40"
                             type="text"
-                            placeholder="Leave youre review here..."
+                            placeholder="Leave your review here..."
                             onChange={(e) => setReview(e.target.value)}
                         />
                     </label>

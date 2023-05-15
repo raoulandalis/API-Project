@@ -46,27 +46,30 @@ const SpotUser = () => {
                 {spotsUser.map(spot => (
                     <div key={spot.id}>
                         <>
-                        <NavLink to={`/spots/${spot.id}`}>
-                            <div className="spot-card">
-                                <img id="spot-card-img" src={`${spot.previewImage}`} alt="img" />
-                                <div className="manage-review">
-                                    <img id="radiant-spot" src={Radiant} />
-                                    <b>{spot.avgRating?.toFixed(1)}</b>
-                                </div>
-                                <div className="manage-city">{spot.city}, {spot.state}</div>
-                                <div className="manage-country">{spot.country}</div>
-                            </div>
-                        </NavLink>
-                        <div className="update-delete-button">
-                            <NavLink style={{ textDecoration: "none" }} to={`/spots/${spot.id}/edit`} id="update-button">Update</NavLink>
-                            {/* <NavLink style={{ textDecoration: "none" }} to="" id="delete-button">Delete</NavLink> */}
-                            <OpenModalButton
-                                buttonText='Delete'
-                                modalComponent={
-                                    <DeleteModal spotId={spot.id} />
+                            <NavLink to={`/spots/${spot.id}`}>
+                                <div className="spot-card">
+                                    <img id="spot-card-img" src={`${spot.previewImage}`} alt="img" />
+                                    <div className="manage-review">
+                                        <div className="manage-city">{spot.city}, {spot.state}</div>
+                                        {spot.avgRating ?
+                                    <div className="review"><img id="radiant-front" src={Radiant} /><b>{spot.avgRating.toFixed(1)}</b></div>
+                                    :
+                                    <div className="review"><img id="radiant-front" src={Radiant} /><b>New</b></div>
                                 }
-                            />
-                        </div>
+                                    </div>
+                                    <div className="price"><b>${spot.price}</b> night</div>
+                                </div>
+                            </NavLink>
+                            <div className="update-delete-button">
+                                <NavLink style={{ textDecoration: "none" }} to={`/spots/${spot.id}/edit`} id="update-button">Update</NavLink>
+                                {/* <NavLink style={{ textDecoration: "none" }} to="" id="delete-button">Delete</NavLink> */}
+                                <OpenModalButton
+                                    buttonText='Delete'
+                                    modalComponent={
+                                        <DeleteModal spotId={spot.id} />
+                                    }
+                                />
+                            </div>
                         </>
                     </div>
                 ))}
