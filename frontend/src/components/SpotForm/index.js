@@ -115,7 +115,7 @@ const CreateForm = ({ spot }) => {
                         </label>
                         {/* {validationErrors.country && submitted && <p className="errors">{validationErrors.country}</p>} */}
                         <label className="form-labels">
-                            <div className="type-label">Street Address</div>
+                            <div className="type-label" id="addy">Street Address</div>
                             {validationErrors.address && submitted && <p className="errors">{validationErrors.address}</p>}
                             <input
                                 id="form-address"

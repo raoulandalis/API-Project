@@ -40,6 +40,7 @@
 
 #ct-label {
     padding-right: 70px;
+    margin-left: -30px
 }
 
 .city-state {
@@ -51,6 +52,7 @@
 
 .cs-labels {
     margin-right: 370px;
+    margin-left: -30px;
 }
 
 #descrip-label {
@@ -92,4 +94,8 @@
     display: flex;
     margin-top: 5px;
     margin-bottom: -5px;
+}
+
+#addy {
+    margin-left: -50px;
 }
