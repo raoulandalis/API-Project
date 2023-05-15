@@ -57,7 +57,7 @@ const SpotId = () => {
                     <img id="spotId-main-image" src={oneSpot?.SpotImages?.find(img => img.preview === true)?.url} alt="image-screen" />
 
                     <div className="image-grid">
-                    {oneSpot.SpotImages.filter((img, index) => index > 0).map((img, index) => index < 4 && img ? <img src={img.url} className="grid-images" alt="img" /> : null)}
+                    {oneSpot.SpotImages.filter((img, index) => index >= 0).map((img, index) => index < 4 && img ? <img src={img.url} className="grid-images" alt="img" /> : null)}
                     </div>
                 </div>
                 </>
