@@ -51,7 +51,7 @@ const CreateForm = ({ spot }) => {
         if (!name) errors.name = "Name is required"
         if (name.length < 5 || name.length > 50) errors.name = "Please enter a valid name"
 
-        if (!price) errors.price = "Price is required"
+        if (!price || !Number(price)) errors.price = "Price is required"
 
         if (!image.trim()) {
             errors.image = "Preview image is required";

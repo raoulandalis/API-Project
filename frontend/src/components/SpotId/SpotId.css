@@ -116,6 +116,7 @@
     background-color: #FD4556;
     color: white;
     box-shadow: 3px 3px 3px rgba(13, 13, 14, 0.2);
+    cursor: pointer;
 }
 
 .top-reviews {
