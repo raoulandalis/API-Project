@@ -53,7 +53,7 @@ module.exports = {
         country: 'Russia',
         lat:  41.8781,
         lng: 87.6298,
-        name: 'Icebox',
+        name: 'Split',
         description: 'Sleek, icy, complex.',
         price: 500
       },
