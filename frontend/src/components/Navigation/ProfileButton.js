@@ -65,7 +65,7 @@ function ProfileButton({ user }) {
               <div className="profile-drop">
                 <div id="hello">Hello, {user.firstName}</div>
                 <div id="hello-email">{user.email}</div>
-                <NavLink id="hello-manage" to="/spots/current" style={{ textDecoration: 'none' }}>Manage Spots</NavLink>
+                <NavLink id="hello-manage" to="/spots/current" style={{ textDecoration: 'none' }} onClick={(e) => closeMenu()}>Manage Spots</NavLink>
                 <button id="logout-button" onClick={logout}>Log Out</button>
               </div>
             </div>

@@ -57,7 +57,9 @@ const SpotIdReview = ({spotId}) => {
                 buttonText='Post Your Review'
                 modalComponent={<CreateReviewModal spotId={spotId}/>}
                 />
+                {!reviewArr.length && !userReview && user?.id !== spot.Owner?.id &&
                 <p id="be-first">Be the first to post a review!</p>
+                }
             </div>
         }
         <div className="all-reviews-grid">
